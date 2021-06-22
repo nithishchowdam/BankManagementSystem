@@ -1,0 +1,51 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-10 col-md-7 col-lg-5 mx-auto mt-3 p-3 ">
+            <h4 class="m-5 text-center border-3 border-bottom p-2 border-muted text-dark" id="lh"><i class="fas fa-sign-in-alt"></i> Login Here</h4>
+            <form class="text-dark" #ref="ngForm" (ngSubmit)=" ref.form.valid">
+    
+                <div class="mb-3">
+                    <label for="an" class="form-label text-dark"><i class="far fa-user"></i> Account Number</label>
+            
+                    <input type="number" class="form-control text-dark" id="an" name="AccNo" ngModel required minlength="12"
+                        #refUsername="ngModel" autocomplete="off">
+            
+                    <p class="text-danger" *ngIf="(ref.submitted||refUsername.touched)&&refUsername.errors?.required">*
+                        Account Number is required
+                    </p>
+            
+                    <p class="text-danger" *ngIf="(ref.submitted||refUsername.touched)&&refUsername.errors?.minlength">*
+                        Length should be 12
+                    </p>
+                </div>
+    
+                <div class="mb-3">
+                    <label for="pw" class="form-label text-dark"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" class="form-control" id="pw" name="password" ngModel required 
+                        #refPassword="ngModel" >
+            
+            
+                        <p class="text-danger" *ngIf="(ref.submitted||refPassword.touched)&&refPassword.errors?.required">*
+                            Password is required
+                        </p>
+            
+                        <p class="text-danger" *ngIf="(ref.submitted||refPassword.touched)&&refPassword.errors?.pattern">*
+                            Pattern not matched
+                        </p>
+                </div>
+    
+                <button type="submit" class="btn btn-success d-block mx-auto m-4">Login</button>
+    
+                <p class="lead mt-2 mx-auto text-center" id="dhaa">Dont have an account?</p>
+    
+                <p class="text-dark mx-auto text-center">Click here to <a routerLinkActive="active" routerLink="register" (click)="onRegister()" style="text-decoration: none;" ><strong>Register</strong></a></p>
+    
+    
+            </form>
+    
+    
+        </div>
+    
+        </div>
+    
+    </div>
