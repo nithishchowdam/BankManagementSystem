@@ -1,0 +1,149 @@
+<!--<div class="row text-dark" >
+    <div class="col-sm-10 col-md-7 col-lg-5 mx-auto mt-3 p-3 ">
+        <h4 class="m-5 text-center border-3 border-bottom p-2 border-muted" id="lh">Register Account</h4>
+        <form class="text-white" #ref="ngForm" (ngSubmit)=" ref.form.valid">
+  
+            <div class="mb-3 text-dark">
+                <label for="un" class="form-label"><i class="far fa-user"></i>Username</label>
+        
+                <input type="text" class="form-control" id="un" name="username" ngModel required minlength="4"
+                    #refUsername="ngModel" autocomplete="off">
+        
+                <p class="text-danger" *ngIf="(ref.submitted||refUsername.touched)&&refUsername.errors?.required">*
+                    Username is required
+                </p>
+        
+                <p class="text-danger" *ngIf="(ref.submitted||refUsername.touched)&&refUsername.errors?.minlength">*
+                    Minlength should be 4
+                </p>
+            </div>
+  
+            <div class="mb-3 text-dark">
+                <label for="pw" class="form-label"><i class="fas fa-lock"></i>Password</label>
+                <input type="password" class="form-control" id="pw" name="password" ngModel required 
+                    #refPassword="ngModel" >
+        
+        
+                    <p class="text-danger" *ngIf="(ref.submitted||refPassword.touched)&&refPassword.errors?.required">*
+                        Password is required
+                    </p>
+        
+                    <p class="text-danger" *ngIf="(ref.submitted||refPassword.touched)&&refPassword.errors?.pattern">*
+                        Pattern not matched
+                    </p>
+            </div>
+  
+            <div class="mb-3 text-dark">
+              <label for="pw" class="form-label">Confirm Password</label>
+              <input type="password" class="form-control" id="pw" name="password" ngModel required 
+                  #refPassword="ngModel" >
+      
+      
+                  <p class="text-danger" *ngIf="(ref.submitted||refPassword.touched)&&refPassword.errors?.required">*
+                      Password is required
+                  </p>
+      
+                  <p class="text-danger" *ngIf="(ref.submitted||refPassword.touched)&&refPassword.errors?.pattern">*
+                      Pattern not matched
+                  </p>
+          </div>
+  
+            <button type="submit" class="btn btn-success d-block mx-auto m-4" >Register</button>
+  
+            
+  
+            
+  
+  
+        </form>
+  
+  
+    </div>
+  
+    </div>
+-->
+
+<div class="row">
+    <div class="col-sm-10 col-md-7 col-lg-5 mx-auto mt-3 p-3 ">
+        <h4 class="m-5 text-center border-3 border-bottom p-2 border-muted" ><i class="fas fa-book"></i> Register Account</h4>
+        <form class="row g-3" #ref="ngForm" (ngSubmit)=" ref.form.valid">
+
+            <div class="col-md-6">
+              <label for="em" class="form-label">Email</label>
+                <input type="text" class="form-control" id="em" name="username" ngModel required minlength="4"
+                    #refUsername="ngModel" autocomplete="off">
+                <p class="text-danger" *ngIf="(ref.submitted||refUsername.touched)&&refUsername.errors?.required">*
+                        Username is required
+                </p>
+                
+                <p class="text-danger" *ngIf="(ref.submitted||refUsername.touched)&&refUsername.errors?.minlength">*
+                    Minlength should be 4
+                </p>
+            </div>
+
+            <div class="col-md-6">
+              
+              <label for="pw" class="form-label">Password</label>
+              <input type="password" class="form-control" id="pw" name="password" ngModel required 
+                  #refPassword="ngModel" >
+      
+      
+                  <p class="text-danger" *ngIf="(ref.submitted||refPassword.touched)&&refPassword.errors?.required">*
+                      Password is required
+                  </p>
+      
+                  <p class="text-danger" *ngIf="(ref.submitted||refPassword.touched)&&refPassword.errors?.pattern">*
+                      Pattern not matched
+                  </p>
+              
+            </div>
+
+
+            <div class="col-12">
+              <label for="inputAddress" class="form-label">Address</label>
+              <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+            </div>
+
+
+            <div class="col-md-6">
+              <label for="inputCity" class="form-label">City</label>
+              <input type="text" class="form-control" id="inputCity">
+            </div>
+
+
+            <div class="col-md-4">
+              <label for="inputState" class="form-label">State</label>
+              <select id="inputState" class="form-select">
+                <option selected>Choose...</option>
+                <option>telangana</option>
+                <option>andhra pradesh</option>
+                <option>maharastra</option>
+                <option>chennai</option>
+                <option>karnataka</option>
+              </select>
+            </div>
+
+            <div class="col-md-2">
+              <label for="inputZip" class="form-label">Zip</label>
+              <input type="text" class="form-control" id="inputZip">
+            </div>
+
+            <div class="col-12">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck">
+                <label class="form-check-label" for="gridCheck">
+                  Check me out
+                </label>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary" (click)="onRegister()">Register</button>
+            </div>
+
+          </form>
+            
+    </div>
+</div>
+
+
