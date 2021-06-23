@@ -1,0 +1,16 @@
+/* for arrows in lists */ 
+
+
+li{
+    list-style: none;
+}
+li::before{
+
+
+    content: "\00BB";
+    color:red;
+}
+
+tr:hover{
+    background-color:thistle;
+}
