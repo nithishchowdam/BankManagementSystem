@@ -8,6 +8,8 @@ import { LoginComponent } from './login/login.component';
 import { FooterComponent } from './footer/footer.component';
 import { RegisterComponent } from './register/register.component';
 import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import { UserProfileComponent } from './user-profile/user-profile.component'
 
 
 @NgModule({
@@ -16,12 +18,14 @@ import {FormsModule} from '@angular/forms';
     HomeComponent,
     LoginComponent,
     FooterComponent,
-    RegisterComponent
+    RegisterComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
