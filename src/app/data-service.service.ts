@@ -17,5 +17,23 @@ export class DataServiceService {
    return this.hc.post('/user/login',userObj)
   }
 
+  registeredUser(registeredobj):Observable<any>{
+    return this.hc.post("/user/registeredUser/",registeredobj)
+  }
+
+
+  userLoginStatus():boolean{
+  if(localStorage.getItem("custId")==null){
+    return false;
+  }
+  else{
+    return true;
+  }
+}
+
+  onLogout(){
+    localStorage.clear();
+  }
+
 
 }

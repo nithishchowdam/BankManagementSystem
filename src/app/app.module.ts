@@ -9,7 +9,8 @@ import { FooterComponent } from './footer/footer.component';
 import { RegisterComponent } from './register/register.component';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import { UserProfileComponent } from './user-profile/user-profile.component'
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component'
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component'
     LoginComponent,
     FooterComponent,
     RegisterComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    PagenotfoundComponent
   ],
   imports: [
     BrowserModule,

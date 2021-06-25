@@ -1,0 +1,40 @@
+<div class="container mt-4">
+    <div class="table-content">
+        
+        <div class="table">
+            <thead>
+                <th>NAME</th>
+                <th>EMAIL</th>
+                <th>ADDRESS</th>
+                <th>DOB</th>
+                <th>MOBILENO</th>
+                <th>AADHAR NO</th>
+                <th>PAN NO</th>
+                <th>STATUS</th>
+
+            </thead>
+
+
+            <tbody>
+                <tr *ngFor="let registerUserObj of registeresUsersList ; let ind=index">
+                    <td>{{registerUserObj[0]}}</td>
+                    <td>{{registerUserObj[1]}}</td>
+                    <td>{{registerUserObj[2]}}</td>
+                    <td>{{registerUserObj[3] | date}}</td>
+                    <td>{{registerUserObj[4]}}</td>
+                    <td>{{registerUserObj[5]}}</td>
+                    <td>{{registerUserObj[6]}}</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" (click)="onCreateRegisteredUser(registerUserObj)">Create Acc</button>
+                    </td>
+
+                </tr>
+            </tbody>
+
+
+
+
+
+        </div>
+    </div>
+</div>

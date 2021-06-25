@@ -30,23 +30,29 @@ export class LoginComponent implements OnInit {
   onLogin(credentials){
     let inputLoginObject=credentials.value;
 
-    if(this.adminLoginStatus){
-//admin/login,successful ,Invalid Id,unsuccessful
-      console.log(inputLoginObject);
-      this.dsObj.adminLogin(inputLoginObject).subscribe(
-        res=>{
-          if(res.message=="successful"){
-            this.router.navigateByUrl('/admin');
-          }
-          else{
-            alert(res.message)
-          }
-        },
-        err=>{
-          console.log(err);
-          alert("something went wrong in admin-module..try again")
-        }
-      )
+//     if(this.adminLoginStatus){
+// //admin/login,successful ,Invalid Id,unsuccessful
+//       console.log(inputLoginObject);
+//       this.dsObj.adminLogin(inputLoginObject).subscribe(
+//         res=>{
+//           if(res.message=="successful"){
+//             this.router.navigateByUrl('/admin');
+//           }
+//           else{
+//             alert(res.message)
+//           }
+//         },
+//         err=>{
+//           console.log(err);
+//           alert("something went wrong in admin-module..try again")
+//         }
+//       )
+
+//     }
+
+    if(inputLoginObject.custId==123456 && inputLoginObject.password==123456){
+      localStorage.setItem("custId",'123456')
+      this.router.navigateByUrl('/admin');
 
     }
     else{

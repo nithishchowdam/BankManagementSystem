@@ -1,0 +1,74 @@
+<div class="container table-content">
+
+    <p class="lead display-5">users data:</p>
+    <form #ref="ngForm" (ngSubmit)="saveUserData(ref.value)">
+    <table class=" table">
+        
+        <thead>
+            <th>CUST-NAME</th>
+            <th>CUST-ADDRESS</th>
+            <th>CUST-MOBILENO</th>
+            <th>CUST-DOB</th>
+            <th>CUST-EMAIL</th>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let userobj of usersList;let ind=index">
+                <!--cust-name-->
+                <td>
+                    <span *ngIf="!editUserStatus || editUserIndex!==ind">
+                        {{userobj[1]}}
+                    </span>
+                    <input type="text" name="custName" id="" *ngIf="editUserStatus && editUserIndex==ind" [(ngModel)]="editUserObj[1]">
+                </td>
+                <!--cust-address-->
+                <td>
+                    <span *ngIf="!editUserStatus || editUserIndex!==ind">
+                        {{userobj[2]}}
+                    </span>
+                    <input type="text" name="custAddress" id="" *ngIf="editUserStatus && editUserIndex==ind" [(ngModel)]="editUserObj[2]">
+                </td>
+            <!--cust-mobileno.-->
+                <td>
+                    <span *ngIf="!editUserStatus || editUserIndex!==ind">
+                        {{userobj[3]}}
+                    </span>
+                    <input type="text" name="custphone" id="" *ngIf="editUserStatus && editUserIndex==ind" [(ngModel)]="editUserObj[3]">
+                </td>
+                <!--cust dob-->
+                <td>
+                    <span *ngIf="!editUserStatus || editUserIndex!==ind">
+                        {{userobj[4] | date}}
+                    </span>
+                    <input type="text" name="custDob" id="" *ngIf="editUserStatus && editUserIndex==ind" [(ngModel)]="editUserObj[4]">
+                </td>
+                <!--email-->
+                <td>
+                    <span *ngIf="!editUserStatus || editUserIndex!==ind">
+                        {{userobj[5]}}
+                    </span>
+                    <input type="text" name="custEmail" id="" *ngIf="editUserStatus && editUserIndex==ind" [(ngModel)]="editUserObj[5]">
+                </td>
+                <!--buttons of edit and delete-->
+                <td>
+                    <span *ngIf="!editUserStatus || editUserIndex!==ind">
+                        <button class="btn btn-danger btn-sm p-1 m-1"(click)="editUser(userobj,ind)" type="button" ><i
+                                class="fas fa-edit text-warning"></i></button>
+                        <button class="btn btn-warning btn-sm p-1 m-1" (click)="deleteUserData(userobj)" type="button"><i
+                                class="fas fa-trash-alt text-danger" ></i></button>
+                    </span>
+                    <!--save-->
+                    <span *ngIf="editUserStatus && editUserIndex==ind">
+                        <button class="btn btn-sm btn-success" type="submit" ><i
+                                class="fas fa-save text-white"></i></button>
+                    </span>
+                    
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+
+    </form>
+
+</div>

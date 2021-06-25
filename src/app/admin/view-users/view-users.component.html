@@ -1,0 +1,36 @@
+<p class="display-5">Users List:</p>
+
+<div class="table-content container-fluid">
+    <div class="table">
+        <thead>
+            <th>NAME</th>
+            <th>ADDRESS</th>
+            <th>MOBILENO</th>
+            <th>DOB</th>
+            <th>EMAIL</th>
+            <th>ACCNO</th>
+            <th>ACCBAL</th>
+            <th>AADHAR</th>
+            <th>PAN</th>
+            <th>STATUS</th>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let userobj of usersList;let ind=index">
+                <td>{{userobj[1]}}</td>
+                <td>{{userobj[2]}}</td>
+                <td>{{userobj[3] }}</td>
+                <td>{{userobj[4] | date}}</td>
+                <td>{{userobj[5]}}</td>
+                <td>{{userobj[6]}}</td>
+                <td>{{userobj[7]}}</td>
+                <td>{{userobj[8]}}</td>
+                <td>{{userobj[9]}}</td>
+                <td>{{userobj[10]}}</td>
+            </tr>
+        </tbody>
+
+    </div>
+</div>
+
+
