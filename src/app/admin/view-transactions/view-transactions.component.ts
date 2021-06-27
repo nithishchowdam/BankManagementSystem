@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminServiceService } from '../admin-service.service';
 
 @Component({
   selector: 'app-view-transactions',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewTransactionsComponent implements OnInit {
 
-  constructor() { }
+  transactionData:any[]=[];
+
+
+  constructor(private adminDsObj:AdminServiceService) { }
 
   ngOnInit(): void {
+    this.adminDsObj.getTransactionData().subscribe(
+      res=>{
+        this.transactionData=res.rows;
+        console.log(this.transactionData)
+      }
+    )
+
   }
+
+
 
 }

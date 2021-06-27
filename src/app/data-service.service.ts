@@ -17,6 +17,10 @@ export class DataServiceService {
    return this.hc.post('/user/login',userObj)
   }
 
+  getUserProfile(id):Observable<any>{
+    return this.hc.get('/users/viewprofile/'+id)
+  }
+
   registeredUser(registeredobj):Observable<any>{
     return this.hc.post("/user/registeredUser/",registeredobj)
   }
@@ -34,6 +38,34 @@ export class DataServiceService {
   onLogout(){
     localStorage.clear();
   }
+
+
+  usertransferMoney(transferDetails):Observable<any>{
+
+   return this.hc.put('/user/transfer',transferDetails)
+
+  }
+
+
+  getAccountBalance():Observable<any>{
+
+    return this.hc.get('/user/getbalance/'+localStorage.getItem("custId"))
+  
+    }
+
+
+    getUserTransactionHistory():Observable<any>{
+     return this.hc.get('/user/transactionhistory/'+localStorage.getItem("accountNumber"))
+    }
+
+
+    changePassword(passwordDetails):Observable<any>{
+      return this.hc.put('/user/changepassword/'+localStorage.getItem("custId"),passwordDetails);
+    }
+  
+
+
+
 
 
 }

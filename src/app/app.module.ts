@@ -10,7 +10,12 @@ import { RegisterComponent } from './register/register.component';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component'
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { SearchPipe } from './search.pipe';
+import { TransferFundsComponent } from './transfer-funds/transfer-funds.component';
+import { TransactionStatementComponent } from './transaction-statement/transaction-statement.component';
+import { UserChangePasswordComponent } from './user-change-password/user-change-password.component';
+import { UserAccountInfoComponent } from './user-account-info/user-account-info.component'
 
 
 @NgModule({
@@ -21,7 +26,12 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component'
     FooterComponent,
     RegisterComponent,
     UserProfileComponent,
-    PagenotfoundComponent
+    PagenotfoundComponent,
+    SearchPipe,
+    TransferFundsComponent,
+    TransactionStatementComponent,
+    UserChangePasswordComponent,
+    UserAccountInfoComponent
   ],
   imports: [
     BrowserModule,

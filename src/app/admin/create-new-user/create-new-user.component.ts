@@ -19,7 +19,7 @@ export class CreateNewUserComponent implements OnInit {
 
     this.adminDsObj.createUser(newUserObj).subscribe(
       res=>{
-        if(res.message=="successful"){
+        if(res.message=="Account Created"){
           alert("new user created")
         }
         else{

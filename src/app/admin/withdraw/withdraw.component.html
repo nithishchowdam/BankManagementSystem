@@ -1,0 +1,75 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-10 col-md-7 col-lg-5 mx-auto ">
+            <h4 class="m-3 text-center border-3 border-bottom p-2 border-muted text-dark" ><i class="fas fa-hand-holding-usd"></i> Withdraw Here</h4>
+            <form class="text-dark" #ref="ngForm" (ngSubmit)="ref.form.valid && onSubmitFetch(ref)">
+            
+                <div class="mb-3 mt-2">
+                    <label for="acc" class="form-label text-dark">Account Number</label>
+            
+                    <input type="text" class="form-control text-dark" id="acc" name="accno" ngModel required minlength="10" maxlength="10"
+                        #refaccNo="ngModel" autocomplete="off">
+            
+                    <p class="text-danger" *ngIf="(ref.submitted||refaccNo.touched)&&refaccNo.errors?.required">*
+                       account number is required
+                    </p>
+            
+                    <p class="text-danger" *ngIf="(ref.submitted||refaccNo.touched)&&refaccNo.errors?.minlength">*
+                        Length should be 10
+                    </p>
+                </div>
+
+                <div>
+                    <button class="btn btn-success d-block mx-auto " type="submit">Fetch Balance</button>
+                </div>
+
+
+                <div>
+                    <h3 class="text-center text-success m-2">{{accountBalance}}</h3>
+                    <!-- <h3 class="text-center text-success mt-4 mb-4">Rs.12345.89</h3> -->
+                </div>
+
+                <label for="wa" class="form-label text-dark">Enter Withdrawl Amount</label>
+            
+                <input type="text" class="form-control text-dark" id="wa" name="amount" ngModel 
+                       autocomplete="off">
+
+
+                <div class="mt-3">
+                        <button class="btn btn-success d-block mx-auto " type="submit">withdraw</button>
+                </div>
+
+
+
+                </form>
+
+
+<!--                <form #ref="ngForm" (ngSubmit)="onSubmitWithdraw(ref)">
+
+                <div class="mb-3 mt-2">
+                    <label for="wa" class="form-label text-dark">Enter Withdrawl Amount</label>
+            
+                    <input type="text" class="form-control text-dark" id="wa" name="withdraw" ngModel 
+                       autocomplete="off">
+            
+                   <p class="text-danger" *ngIf="(ref.submitted||refWithdraw.touched)&&refWithdraw.errors?.required">*
+                       please enter money
+                    </p>
+            
+                 <p class="text-danger" *ngIf="(ref.submitted||refWithdraw.touched)&&refWithdraw.errors?.minlength">*
+                        Length should be 10
+                    </p>
+                </div>
+
+                <div>
+                    <button class="btn btn-success d-block mx-auto " type="submit">withdraw</button>
+                </div>
+
+                </form>-->
+
+            
+
+            
+        </div>
+    </div>
+</div>
