@@ -1,0 +1,62 @@
+<div class="container">
+    
+    <div class="row">
+        <div class="col-sm-10 col-md-7 col-lg-5 mx-auto ">
+            <h4 class="m-3 text-center border-3 border-bottom p-2 border-muted text-dark" ><i class="fab fa-paypal"></i> Make Payments Here</h4>
+        <form #ref="ngForm" (ngSubmit)="ref.form.valid && onSubmitFetch(ref)">
+        
+            <div class="mb-3 mt-2">
+                <label for="acc" class="form-label text-dark">From Account Number</label>
+        
+                <input type="text" class="form-control text-dark" id="acc" name="fromAccNo" ngModel required minlength="10" maxlength="10"
+                    #refaccNo="ngModel" autocomplete="off">
+        
+                <p class="text-danger" *ngIf="(ref.submitted||refaccNo.touched)&&refaccNo.errors?.required">*
+                   account number is required
+                </p>
+        
+                <p class="text-danger" *ngIf="(ref.submitted||refaccNo.touched)&&refaccNo.errors?.minlength">*
+                    Length should be 10
+                </p>
+            </div>
+
+            <div>
+                <button class="btn btn-success d-block mx-auto mt-3 " type="submit">Fetch Balance</button>
+            </div>
+
+
+                <div>
+                    <h3 class="text-center text-success m-2">{{accountBalance}}</h3>
+                    <!-- <h3 class="text-center text-success mt-4 mb-4">Rs.12345.89</h3> -->
+                </div>
+            
+
+
+            <div class="mb-3 mt-2">
+                <label for="toacc" class="form-label text-dark">To Account Number</label>
+        
+                <input type="text" class="form-control text-dark" id="toAccNo" name="toAccNo" ngModel >
+    
+            </div>
+
+            <div class="mb-3 mt-2">
+                <label for="transfer" class="form-label text-dark">Enter Amount Here</label>
+        
+                <input type="text" class="form-control text-dark" id="transfer" name="amount" ngModel >
+    
+            </div>
+
+            <div>
+                <button class="btn btn-success d-block mx-auto mt-3 " type="submit">transfer money</button>
+            </div>
+
+
+
+
+            
+
+
+        </form>
+        </div>
+    </div>
+</div>

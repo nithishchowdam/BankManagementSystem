@@ -12,36 +12,84 @@ export class AdminServiceService {
 
   getUsersData():Observable<any>{
 //  return this.hc.get('/admin/getuserslist')
-    return this.hc.get('http://localhost:3000/items')
+    return this.hc.get('/admin/getuserslist')
   }
 
 
   getRegisteredUserData():Observable<any>{
-    return this.hc.get('http://localhost:3000/items2')
+    return this.hc.get('/admin/getregistereduserdata')
   }
 
 
   updateUsers(modifiedUserObj):Observable<any>{
-//  return this.hc.get('/admin/updateUsers/'+modifiedUserObj[0],modifiedUserObj)    
-    return  this.hc.put("http://localhost:3000/items/"+modifiedUserObj[0],modifiedUserObj)
+   
+    return  this.hc.put("/admin/updateuser/"+modifiedUserObj.id,modifiedUserObj);
   }
 
   deleteUser(id):Observable<any>{
-    console.log("id is ",id)
-//  return this.hc.delete('/admin/deleteUser/'+id)   
-    return this.hc.delete("http://localhost:3000/items/"+id)
+   return this.hc.delete('/admin/deleteaccount/'+id)   
+   
   }
 
-
+//admin request for creating new user
   createUser(newUserobj):Observable<any>{
-  return  this.hc.post('/admin/createUser',newUserobj)
+  return  this.hc.post('/admin/createaccount/adminrequest',newUserobj)
   }
 
-
+// creation of user requested by admin
   createRegisteredUser(newUserObj):Observable<any>{
-    return this.hc.post('http://localhost:3000/admin/createaccount/usersrequest',newUserObj[5])
+    return this.hc.post('/admin/createaccount/usersrequest',newUserObj)
 
   }
+
+//feteching account balance
+  getAccountBalance(accNO):Observable<any>{
+
+  return this.hc.get('/admin/getbalance/'+accNO)
+
+  }
+
+
+  //withdraw amount
+
+  getWithdrawDetails(withdrawObj):Observable<any>{
+    return this.hc.post('/admin/withdrawl',withdrawObj)
+  }
+
+
+  //deposit
+
+  getDepositDetails(depositObj):Observable<any>{
+    return this.hc.post('/admin/deposit',depositObj)
+  }
+  
+
+
+  //transaction from admin
+
+  transactions(transactionOnj):Observable<any>{
+    return this.hc.put('/admin/transfer',transactionOnj)
+  }
+  
+
+
+  //get transaction data
+
+  getTransactionData():Observable<any>{
+    return this.hc.get('/admin/transactionhistory')
+  }
+
+
+  //change password by admin
+
+  changePassword(passwordDetails):Observable<any>{
+    return this.hc.put('/admin/changepassword/'+localStorage.getItem("AdminId"),passwordDetails);
+  }
+
+
+
+
+
 
 
   

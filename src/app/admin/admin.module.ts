@@ -11,7 +11,11 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { AddUsersbyAdminComponent } from './add-usersby-admin/add-usersby-admin.component';
 import { CreateNewUserComponent } from './create-new-user/create-new-user.component';
-import { ReviewNewUserComponent } from './review-new-user/review-new-user.component'
+import { ReviewNewUserComponent } from './review-new-user/review-new-user.component';
+import { WithdrawComponent } from './withdraw/withdraw.component';
+import { DepositComponent } from './deposit/deposit.component';
+import { SeeTransactionsComponent } from './see-transactions/see-transactions.component';
+import { ChangePassWordComponent } from './change-pass-word/change-pass-word.component'
 
 
 @NgModule({
@@ -23,7 +27,11 @@ import { ReviewNewUserComponent } from './review-new-user/review-new-user.compon
     ViewTransactionsComponent,
     AddUsersbyAdminComponent,
     CreateNewUserComponent,
-    ReviewNewUserComponent
+    ReviewNewUserComponent,
+    WithdrawComponent,
+    DepositComponent,
+    SeeTransactionsComponent,
+    ChangePassWordComponent
   ],
   imports: [
     CommonModule,

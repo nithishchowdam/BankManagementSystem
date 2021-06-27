@@ -10,6 +10,10 @@ export class UpdateAccountsComponent implements OnInit {
 
   usersList:any[]=[];
 
+  modifiedUserData:any={};
+
+  
+
   editUserIndex;
   editUserObj;
   editUserStatus:boolean=false;
@@ -56,26 +60,42 @@ export class UpdateAccountsComponent implements OnInit {
     modifiedUserObj[9]=this.editUserObj[9];
     modifiedUserObj[10]=this.editUserObj[10];
 
-    this.adminDsObj.updateUsers(modifiedUserObj).subscribe(
+
+    this.modifiedUserData.id=modifiedUserObj[0];
+    this.modifiedUserData.custname=modifiedUserObj[1];
+    this.modifiedUserData.custaddress=modifiedUserObj[2];
+    this.modifiedUserData.custmobileno=modifiedUserObj[3];
+    this.modifiedUserData.custdob=modifiedUserObj[4];
+    this.modifiedUserData.custemail=modifiedUserObj[5];
+
+
+    this.adminDsObj.updateUsers(this.modifiedUserData).subscribe(
       res=>{
-        console.log(res);
+        if(res.message=="Updated Successfully"){
+          alert("updated succesfully")
+        }
       },
       err=>{
         console.log("err in update is",err)
+        alert("err in update")
       }
     )
 
-    console.log(modifiedUserObj);
+    console.log(this.modifiedUserData);
   }
 
 //delete users
   deleteUserData(userobj){
     console.log("user to delete is",userobj[0]);
+  
 
     this.adminDsObj.deleteUser(userobj[0]).subscribe(
       res=>{
         this.getUsers();
-        alert("user deleted")
+        if(res.message=="User Account Deleted Successfully"){
+          alert("user deleted");
+        }
+        
       },
       err=>{
         console.log("err in delete user is",err)

@@ -10,6 +10,10 @@ export class ReviewNewUserComponent implements OnInit {
 
   registeresUsersList:any[]=[];
 
+  newUserAadharid:any={};
+
+  newAadharObj:any={};
+
   constructor(private adminDsObj:AdminServiceService) { }
 
   ngOnInit(): void {
@@ -31,13 +35,21 @@ export class ReviewNewUserComponent implements OnInit {
 
 
   onCreateRegisteredUser(registerUserObj){
+    
     let newUserData=registerUserObj;
-    console.log(newUserData);
 
-    this.adminDsObj.createRegisteredUser(newUserData).subscribe(
+    this.newUserAadharid.aadharno=newUserData[5];
+
+//    this.newAadharObj.aadharno=newUserData[5];
+
+    // console.log(newUserData);
+
+    this.adminDsObj.createRegisteredUser(this.newUserAadharid).subscribe(
       res=>{
         if(res.message=="Account Created"){
           alert("New Acc Created");
+          this.getRegisteredData();
+
         }
         else{
           alert(`res.message`)
