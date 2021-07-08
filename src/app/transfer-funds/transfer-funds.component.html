@@ -22,8 +22,8 @@
 
 
                 <div>
-                    <h3>78999</h3>
-                     <h3 class="text-center text-success m-2">{{prevBalance}}</h3> 
+                    
+                     <h5 class="text-center text-success m-2 mt-4"> Available Balance : {{prevBalance}}</h5>
                     
                 </div>
             
@@ -32,19 +32,19 @@
             <div class="mb-3 mt-2">
                 <label for="toacc" class="form-label text-dark">To Account Number</label>
         
-                <input type="text" class="form-control text-dark" id="toacc" name="toAccNo" ngModel >
+                <input type="text" class="form-control text-dark" id="toacc" name="toAccNo" placeholder="1234567XXX" ngModel >
     
             </div>
 
             <div class="mb-3 mt-2">
                 <label for="transfer" class="form-label text-dark">Enter Amount Here</label>
         
-                <input type="text" class="form-control text-dark" id="transfer" name="amount" ngModel >
+                <input type="text" class="form-control text-dark" id="transfer" name="amount" placeholder="100" ngModel >
     
             </div>
 
             <div>
-                <button class="btn btn-success d-block mx-auto mt-3 " type="submit">transfer money</button>
+                <button class="btn btn-success d-block mx-auto mt-3 " type="submit">Transfer Money</button>
             </div>
 
         </form>

@@ -15,7 +15,11 @@ import { ReviewNewUserComponent } from './review-new-user/review-new-user.compon
 import { WithdrawComponent } from './withdraw/withdraw.component';
 import { DepositComponent } from './deposit/deposit.component';
 import { SeeTransactionsComponent } from './see-transactions/see-transactions.component';
-import { ChangePassWordComponent } from './change-pass-word/change-pass-word.component'
+import { ChangePassWordComponent } from './change-pass-word/change-pass-word.component';
+import { NgxPaginationModule} from 'ngx-pagination';
+import { SearchAccnoPipe } from './search-accno.pipe';
+import { SearchTranAccnoPipe } from './search-tran-accno.pipe';
+import { SearchTranIdPipe } from './search-tran-id.pipe';
 
 
 @NgModule({
@@ -31,13 +35,17 @@ import { ChangePassWordComponent } from './change-pass-word/change-pass-word.com
     WithdrawComponent,
     DepositComponent,
     SeeTransactionsComponent,
-    ChangePassWordComponent
+    ChangePassWordComponent,
+    SearchAccnoPipe,
+    SearchTranAccnoPipe,
+    SearchTranIdPipe
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ]
 })
 export class AdminModule { }

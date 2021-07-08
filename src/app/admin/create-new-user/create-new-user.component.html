@@ -2,22 +2,24 @@
     
     <div class="row">
         <div class="col-sm-10 col-md-7 col-lg-5 mx-auto  ">
-            <h4 class="m-5 text-center border-3 border-bottom p-2 border-muted text-dark" ><i class="fas fa-book"></i> create New Account</h4>
+            <h4 class="m-5 text-center border-3 border-bottom p-2 border-muted text-dark" ><i class="fas fa-book"></i> Create New Account</h4>
             <form class="text-dark" #ref="ngForm" (ngSubmit)="ref.form.valid && onCreateUser(ref) ">
     <!--username-->
                 <div class="mb-3 mt-2">
                     <label for="an" class="form-label text-dark">Username</label>
-            
-                    <input type="text" class="form-control text-dark" id="an" name="username" ngModel required minlength="4"
-                        #refUsername="ngModel" autocomplete="off">
-            
-                    <p class="text-danger" *ngIf="(ref.submitted||refUsername.touched)&&refUsername.errors?.required">*
-                        username is required
-                    </p>
-            
-                    <p class="text-danger" *ngIf="(ref.submitted||refUsername.touched)&&refUsername.errors?.minlength">*
-                        Length should be 4
-                    </p>
+                    <input type="text" class="form-control text-dark" id="an" name="username" ngModel required minlength="4" maxlength="28"
+                      #refUsername="ngModel" autocomplete="off">
+          
+                  <p class="text-danger" *ngIf="(ref.submitted||refUsername.touched)&&refUsername.errors?.required">*
+                      username is required
+                  </p>
+          
+                  <p class="text-danger" *ngIf="(ref.submitted||refUsername.touched)&&refUsername.errors?.minlength">*
+                     min  Length should be 4
+                  </p>
+                  <p class="text-danger" *ngIf="(ref.submitted||refUsername.touched)&&refUsername.errors?.maxlength">*
+                     Length should not exceed 28
+                  </p>
                 </div>
   
   <!--aadhar number and pan number-->
@@ -25,23 +27,23 @@
                 <div class="row">
                     <div class="col-sm-6">
                       <div class="mb-3 mt-2">
-                          <label for="ac" class="form-label text-dark">aadhar number</label>
-                  
-                          <input type="text" class="form-control text-dark" id="ac" name="aadharno" ngModel required minlength="12" maxlength="12"
-                              #refaadhar="ngModel" autocomplete="off">
-                  
-                          <p class="text-danger" *ngIf="(ref.submitted||refaadhar.touched)&&refaadhar.errors?.required">*
-                              aadhar number is required
-                          </p>
-                  
-                          <p class="text-danger" *ngIf="(ref.submitted||refaadhar.touched)&&refaadhar.errors?.minlength">*
-                              Length should be 12
-                          </p>
+                          <label for="ac" class="form-label text-dark">Aadhar Number</label>
+                          <input type="number" class="form-control text-dark" id="ac" name="aadharno" ngModel required  pattern="\d\d\d\d\d\d\d\d\d\d\d\d" #refaadhar="ngModel" 
+                        onKeyDown="if(this.value.length==12 && event.keyCode>47 && event.keyCode<58)return false;"   autocomplete="off" >
+                
+                        <p class="text-danger" *ngIf="(ref.submitted||refaadhar.touched)&&refaadhar.errors?.required">*
+                            aadhar number is required
+                        </p>
+                
+                        <p class="text-danger" *ngIf="(ref.submitted||refaadhar.touched)&&refaadhar.errors?.pattern">*
+                            Length should be 12
+                        </p> 
+                          
                       </div>
                     </div>
                     <div class="col-sm-6">
                       <div class="mb-3 mt-2">
-                          <label for="pc" class="form-label text-dark">PAN CARD no.</label>
+                          <label for="pc" class="form-label text-dark">PAN Card No.</label>
                   
                           <input type="text" class="form-control text-dark" id="pc" name="panno" ngModel required minlength="10" maxlength="10"
                               #refpan="ngModel" autocomplete="off">
@@ -61,49 +63,50 @@
     
                 <div class="mb-3">
                     <label for="em" class="form-label text-dark">Email</label>
-                    <input type="email" class="form-control" id="em" name="email" ngModel required 
-                        #refemail="ngModel" >
-            
-            
-                        <p class="text-danger" *ngIf="(ref.submitted||refemail.touched)&&refemail.errors?.required">*
-                            email is required
-                        </p>        
+                    <input type="email" class="form-control" id="em" name="email" ngModel required maxlength="45" placeholder="example123@gmail.com"
+                    #refemail="ngModel" >
+                    <p class="text-danger" *ngIf="(ref.submitted||refemail.touched)&&refemail.errors?.required">*
+                        email is required
+                    </p>     
+                    <p class="text-danger" *ngIf="(ref.submitted||refemail.touched)&&refemail.errors?.maxlength">*
+                      Length should not exceed 45
+                    </p>         
                 </div>
   
   
                 <div class="mb-3">
                   <label for="ad" class="form-label text-dark">Address</label>
-                  <input type="text" class="form-control" id="ad" name="address" ngModel required 
-                      #refaddress="ngModel" >
-          
-          
-                      <p class="text-danger" *ngIf="(ref.submitted||refaddress.touched)&&refaddress.errors?.required">*
-                          address is required
-                      </p>        
+                  <input type="text" class="form-control" id="ad" name="address" ngModel required maxlength="68" 
+                    #refaddress="ngModel" >
+                    <p class="text-danger" *ngIf="(ref.submitted||refaddress.touched)&&refaddress.errors?.maxlength">*
+                        Length should not exceed 68
+                    </p> 
+                    <p class="text-danger" *ngIf="(ref.submitted||refaddress.touched)&&refaddress.errors?.required">*
+                        address is required
+                    </p>            
                 </div>  
   
                 <div class="row">
   
                   <div class="col-sm-6">
                     <div class="mb-3">
-                      <label for="ph" class="form-label text-dark">phone Number</label>
-                      <input type="number" class="form-control" id="ph" name="phoneno" ngModel required 
-                          #refphone="ngModel" >
-              
-              
-                          <p class="text-danger" *ngIf="(ref.submitted||refphone.touched)&&refphone.errors?.required">*
-                              phone number is required
-                          </p>        
+                      <label for="ph" class="form-label text-dark">Phone Number</label>
+                      <input type="number" class="form-control" id="ph" name="phoneno" ngModel required  pattern="\d\d\d\d\d\d\d\d\d\d"
+                    onKeyDown="if(this.value.length==10 && event.keyCode>47 && event.keyCode<58)return false;" #refphone="ngModel" >
+                        <p class="text-danger" *ngIf="(ref.submitted||refphone.touched)&&refphone.errors?.required">*
+                            phone number is required
+                        </p>   
+                        <p class="text-danger" *ngIf="(ref.submitted||refphone.touched)&&refphone.errors?.pattern">*
+                            Length should be 10
+                        </p>   
                     </div>  
                   </div>
   
                   <div class="col-sm-6">
                     <div class="mb-3">
-                      <label for="dob" class="form-label text-dark">dob</label>
+                      <label for="dob" class="form-label text-dark">DOB</label>
                       <input type="date" class="form-control" id="dob" name="dob" ngModel required 
                           #refdob="ngModel" >
-              
-              
                           <p class="text-danger" *ngIf="(ref.submitted||refdob.touched)&&refdob.errors?.required">*
                               dob is required
                           </p>        
@@ -113,7 +116,7 @@
   
                 </div>
   
-              <button type="submit" class="btn btn-success d-block mx-auto m-4" >Register</button>
+              <button type="submit" class="btn btn-success d-block mx-auto m-4" >Create Account</button>
     
             </form>
     

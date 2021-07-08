@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AdminServiceService } from '../admin-service.service';
 
 @Component({
@@ -8,43 +10,40 @@ import { AdminServiceService } from '../admin-service.service';
 })
 export class ChangePassWordComponent implements OnInit {
 
-  newPasswordObj:any={};
+  newPasswordObj: any = {};
 
-  constructor(private adminDsObj:AdminServiceService) { }
+  constructor(private adminDsObj: AdminServiceService, private router: Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
   }
 
 
-  onSubmitPassword(passwordDetails){
+  onSubmitPassword(passwordDetails): void {
 
-    let password=passwordDetails.value;
-    let enteredPass=password.password;
-    let confirmPass=password.ConfirmPassword;
+    const password = passwordDetails.value;
+    const enteredPass = password.password;
+    const confirmPass = password.ConfirmPassword;
+    if (enteredPass === confirmPass){
 
-    console.log(enteredPass);
-    console.log(confirmPass);
-
-
-    if(enteredPass===confirmPass){
-
-      this.newPasswordObj.newpassword=confirmPass;
-
-
+      this.newPasswordObj.newPassword = confirmPass;
       this.adminDsObj.changePassword(this.newPasswordObj).subscribe(
-        res=>{
-          if(res.message=="Password Updated Successfully"){
-            alert("password successfully changed");
+        res => {
+          if (res.message == 'Password Updated Successfully'){
+            alert('Password successfully changed');
+            localStorage.clear();
+            this.router.navigateByUrl('/login');
+
           }
         },
-        err=>{
-          console.log("something went wrong in changing password",err);
-          alert("something went wrong in changing password...try again")
+        err => {
+          console.log('something went wrong in changing password', err);
+          alert('something went wrong in changing password...try again');
         }
-      )
+      );
     }
     else{
-      alert("password doesnt match...please enter again")
+      this.toastr.error("Please enter again","Password doesnt match... ")
+      //alert('password doesnt match...please enter again');
     }
 
 

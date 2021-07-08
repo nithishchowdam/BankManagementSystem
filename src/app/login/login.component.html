@@ -5,8 +5,8 @@
             <form class="text-dark" #ref="ngForm" (ngSubmit)="ref.form.valid && onLogin(ref)">
 
 
-                <span class="form-check ">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="user" checked>
+                <!-- <span class="form-check ">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="user"   checked>
                     <label class="form-check-label" for="user">
                       user
                     </label>
@@ -16,12 +16,24 @@
                     <label class="form-check-label" for="admin">
                       admin
                     </label>
-                </span>
+                </span> -->
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="type" id="admin" ngModel value="admin">
+                    <label class="form-check-label" for="admin">
+                        Admin
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="type" id="user" ngModel value="user">
+                    <label class="form-check-label" for="user">
+                        User
+                    </label>
+                </div>
     
                 <div class="mb-3 mt-2">
                     <label for="an" class="form-label text-dark"><i class="far fa-user"></i> Enter CUST. ID</label>
             
-                    <input type="number" class="form-control text-dark" id="an" name="custId" ngModel required minlength="4"
+                    <input type="number" class="form-control text-dark" id="an" name="id" ngModel required minlength="4"
                         #refUsername="ngModel" autocomplete="off">
             
                     <p class="text-danger" *ngIf="(ref.submitted||refUsername.touched)&&refUsername.errors?.required">*

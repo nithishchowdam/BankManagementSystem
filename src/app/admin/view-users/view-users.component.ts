@@ -7,20 +7,20 @@ import { AdminServiceService } from '../admin-service.service';
   styleUrls: ['./view-users.component.css']
 })
 export class ViewUsersComponent implements OnInit {
-
-  usersList:any[]=[];
-  constructor(private adminDsObj:AdminServiceService) { }
+  searchTerm:string;
+  p = 1;
+  usersList: any[] = [];
+  constructor(private adminDsObj: AdminServiceService) { }
 
   ngOnInit(): void {
     this.adminDsObj.getUsersData().subscribe(
-      res=>{
-        this.usersList=res.rows;
-        console.log(this.usersList);
+      res => {
+        this.usersList = res.message.rows;
       },
-      err=>{
-        console.log("err in getusers data is",err)
+      err => {
+        console.log('err in getusers data is', err);
       }
-    )
+    );
 
 
   }

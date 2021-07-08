@@ -8,60 +8,79 @@ import { DataServiceService } from '../data-service.service';
 })
 export class TransferFundsComponent implements OnInit {
 
-   prevBalance:any;
+   prevBalance: any;
 
-  constructor(private dsObj:DataServiceService) { }
+  constructor(private dsObj: DataServiceService) { }
 
   ngOnInit(): void {
-    this.prevBalance=this.updatedBalance();
+    this.updatedBalance();
+
   }
 
 
   updatedBalance(){
-    let newBalance;
+
     this.dsObj.getAccountBalance().subscribe(
-      res=>{
-        newBalance=res.rows[0][0];
+      res => {
+
+        this.prevBalance = res.message.rows[0][0];
       },
 
-      err=>{
-        console.log("err in updatedBalance",err);
-        alert("err in fetching new balance");
+      err => {
+        console.log('err in updatedBalance', err);
+        alert('err in fetching new balance');
       }
-    )
-
-    return newBalance;
-  }
+    );
+    }
 
   onSubmitTranser(ref){
 
-   let transcDetails=ref.value;
+
+   const transcDetails = ref.value;
 
 
-   transcDetails.prevbal=this.prevBalance;
+   transcDetails.prevbal = this.prevBalance;
+   transcDetails.fromAccNo = localStorage.getItem('accountNumber');
+
+
+   if (transcDetails.amount < 100){
+     alert('Please enter amount greater than 100');
+   }
+   else{
+     if (transcDetails.amount > transcDetails.prevbal){
+       alert('Insufficient Balance');
+     }
+     else{
 
    this.dsObj.usertransferMoney(transcDetails).subscribe(
-     res=>{
-       if(res.message=="Transaction Succesfull"){
-         this.prevBalance= this.updatedBalance();
-         alert("transfer done");
+     res => {
+
+       if (res.message == 'Transaction Successfull'){
+          this.updatedBalance();
+          alert(' Amount Rs.' + transcDetails.amount + ' Successfully Transfered \n To Account Number : ' + transcDetails.toAccNo);
+          ref.reset();
+       }
+       else{
+         alert(res.message);
+
        }
      },
-     err=>{
-       console.log("err in transfer is",err);
-       alert("something wrong in transfer money")
+     err => {
+       console.log('err in transfer is', err);
+       alert('something wrong in transfer money');
      }
-   )
+   );
 
 
 
-   
+    }
+
+
+    }
 
 
 
 
-
-    
   }
 
 

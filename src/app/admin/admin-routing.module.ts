@@ -13,21 +13,21 @@ import { ViewTransactionsComponent } from './view-transactions/view-transactions
 import { ViewUsersComponent } from './view-users/view-users.component';
 import { WithdrawComponent } from './withdraw/withdraw.component';
 
-const routes: Routes = [  {path:'updateAcc',component:UpdateAccountsComponent},
-  {path:'accTransactions',component:TransactionsComponent,children:[
-    {path:'withdraw',component:WithdrawComponent},
-    {path:'deposit',component:DepositComponent},
-    {path:'makeTransactions',component:SeeTransactionsComponent},
-    {path:'',redirectTo:'withdraw',pathMatch:'full'}
+const routes: Routes = [  {path: 'updateAcc', component: UpdateAccountsComponent},
+  {path: 'accTransactions', component: TransactionsComponent, children: [
+    {path: 'withdraw', component: WithdrawComponent},
+    {path: 'deposit', component: DepositComponent},
+    {path: 'makeTransactions', component: SeeTransactionsComponent},
+    {path: '', redirectTo: 'withdraw', pathMatch: 'full'}
   ]},
-  {path:'addUser',component:AddUsersbyAdminComponent,children:[
-    {path:'createUser',component:CreateNewUserComponent},
-    {path:'reviewUser',component:ReviewNewUserComponent},
-    {path:'', redirectTo:'createUser',pathMatch:'full'},
+  {path: 'addUser', component: AddUsersbyAdminComponent, children: [
+    {path: 'createUser', component: CreateNewUserComponent},
+    {path: 'reviewUser', component: ReviewNewUserComponent},
+    {path: '', redirectTo: 'createUser', pathMatch: 'full'},
   ]},
-  {path:'getUsers',component:ViewUsersComponent},
-  {path:'getTransactions',component:ViewTransactionsComponent},
-  {path:'changePass',component:ChangePassWordComponent},
+  {path: 'getUsers', component: ViewUsersComponent},
+  {path: 'getTransactions', component: ViewTransactionsComponent},
+  {path: 'changePass', component: ChangePassWordComponent},
   { path: '', component: AdminComponent}];
 
 @NgModule({

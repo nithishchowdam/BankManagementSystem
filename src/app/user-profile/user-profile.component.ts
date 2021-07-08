@@ -8,21 +8,22 @@ import { DataServiceService } from '../data-service.service';
 })
 export class UserProfileComponent implements OnInit {
 
-  userDetails:any;
-  constructor(private DsObj:DataServiceService) { }
+  userDetails: any;
+  constructor(private DsObj: DataServiceService) { }
 
   ngOnInit(): void {
-    this.DsObj.getUserProfile(localStorage.getItem("custId")).subscribe(
-      res=>{
-        this.userDetails=res.rows[0][10];
-        localStorage.setItem("accountNumber",this.userDetails);
+    this.DsObj.getAccountNo(localStorage.getItem('custId')).subscribe(
+      res => {
+        this.userDetails = res.message.rows[0][0];
+
+        localStorage.setItem('accountNumber', this.userDetails);
       },
-      err=>{
-        console.log("err in userprofile",err);
-        alert("somrthing went wrong in userprofile")
+      err => {
+        console.log('err in userprofile', err);
+        alert('somrthing went wrong in userprofile');
 
       }
-    )
+    );
 
   }
 

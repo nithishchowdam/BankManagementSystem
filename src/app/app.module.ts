@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -15,7 +14,11 @@ import { SearchPipe } from './search.pipe';
 import { TransferFundsComponent } from './transfer-funds/transfer-funds.component';
 import { TransactionStatementComponent } from './transaction-statement/transaction-statement.component';
 import { UserChangePasswordComponent } from './user-change-password/user-change-password.component';
-import { UserAccountInfoComponent } from './user-account-info/user-account-info.component'
+import { UserAccountInfoComponent } from './user-account-info/user-account-info.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 
 
 @NgModule({
@@ -37,7 +40,10 @@ import { UserAccountInfoComponent } from './user-account-info/user-account-info.
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

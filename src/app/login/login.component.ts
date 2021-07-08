@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DataServiceService } from '../data-service.service';
 
 @Component({
@@ -9,76 +10,80 @@ import { DataServiceService } from '../data-service.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router:Router,private dsObj:DataServiceService) { }
+  constructor(private router: Router, private dsObj: DataServiceService,private toastr:ToastrService) { }
 
-  adminLoginStatus=false;
+  adminLoginStatus = false;
 
   ngOnInit(): void {
   }
 
   onRegister(){
-    this.router.navigateByUrl('/register')
+    this.router.navigateByUrl('/register');
   }
 
-  onAdminLogin(){
-    this.adminLoginStatus=true;
-  }
+  // onAdminLogin(){
+  //   this.adminLoginStatus=true;
+  // }
 
 
-//Admin Login Functionality------
+// Admin Login Functionality------
 
   onLogin(credentials){
-    let inputLoginObject=credentials.value;
+    const inputLoginObject = credentials.value;
 
-//     if(this.adminLoginStatus){
-// //admin/login,successful ,Invalid Id,unsuccessful
-//       console.log(inputLoginObject);
-//       this.dsObj.adminLogin(inputLoginObject).subscribe(
-//         res=>{
-//           if(res.message=="successful"){
-//             this.router.navigateByUrl('/admin');
-//           }
-//           else{
-//             alert(res.message)
-//           }
-//         },
-//         err=>{
-//           console.log(err);
-//           alert("something went wrong in admin-module..try again")
-//         }
-//       )
 
-//     }
-
-    if(inputLoginObject.custId==123456 && inputLoginObject.password==123456){
-      localStorage.setItem("AdminId",'123456')
-      this.router.navigateByUrl('/admin');
+    if (inputLoginObject.type === 'admin'){
+// admin/login,successful ,Invalid Id,unsuccessful
+      
+      this.dsObj.adminLogin(inputLoginObject).subscribe(
+        res => {
+          if (res.message == 'successful'){
+            localStorage.setItem('AdminId', inputLoginObject.id);
+            this.router.navigateByUrl('/admin');
+          }
+          else{
+            this.toastr.error(" ",`${res.message}`)
+            //alert(res.message);
+          }
+        },
+        err => {
+          console.log(err);
+          alert('something went wrong in admin-module..try again');
+        }
+      );
 
     }
+
+    // if(inputLoginObject.custId==123456 && inputLoginObject.password==123456){
+    //   localStorage.setItem("AdminId",'123456')
+    //   this.router.navigateByUrl('/admin')
+
+    // }
     else{
 
-      if(inputLoginObject.custId==19071 && inputLoginObject.password==19071){
-        localStorage.setItem("custId",'19071');
-        this.router.navigateByUrl('/userProfile')
-      }
-//user/login,
-      // console.log(inputLoginObject);
-      // this.dsObj.userLogin(inputLoginObject).subscribe(
-      //   res=>{
-      //     if(res.message=="successful"){
-               
-      //       this.router.navigateByUrl(`/userprofile/${res.custId}`)
-      //     }
-      //     else{
-      //       alert(res.message);
-      //     }
+      // if(inputLoginObject.custId==19071 && inputLoginObject.password==19071){
+      //   localStorage.setItem("custId",'19071');
+      //   this.router.navigateByUrl('/userProfile')
+      // }
+// user/login,
+     
+      this.dsObj.userLogin(inputLoginObject).subscribe(
+        res => {
+          if (res.message == 'successful'){
+            localStorage.setItem('custId', inputLoginObject.id);
+            this.router.navigateByUrl('/userProfile');
+          }
+          else{
+            this.toastr.error(" ",`${res.message}`)
+            //alert(res.message);
+          }
 
-      //   },
-      //   err=>{
-      //     console.log(err);
-      //     alert("something went wrong in user-login...try again")
-      //   }
-      // )
+        },
+        err => {
+          console.log(err);
+          alert('something went wrong in user-login...try again');
+        }
+      );
     }
 
   }

@@ -7,23 +7,24 @@ import { DataServiceService } from '../data-service.service';
   styleUrls: ['./transaction-statement.component.css']
 })
 export class TransactionStatementComponent implements OnInit {
- 
-  getTransactions:any[]=[];
 
-  constructor(private dsObj:DataServiceService) { }
+  p = 1;
+  getTransactions: any[] = [];
+
+  constructor(private dsObj: DataServiceService) { }
 
   ngOnInit(): void {
 
     this.dsObj.getUserTransactionHistory().subscribe(
-      res=>{
-        this.getTransactions=res.rows;
+      res => {
+        this.getTransactions = res.message.rows;
       },
-      err=>{
-        console.log("err in getting transaction data",err);
-        alert("oops! something went wrong in grtting transactions")
+      err => {
+        console.log('err in getting transaction data', err);
+        alert('oops! something went wrong in grtting transactions');
 
       }
-    )
+    );
 
   }
 

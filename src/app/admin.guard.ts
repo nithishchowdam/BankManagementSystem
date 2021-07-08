@@ -7,18 +7,18 @@ import { Observable } from 'rxjs';
 })
 export class AdminGuard implements CanActivate {
 
-  constructor(private router:Router){}
+  constructor(private router: Router){}
 
-  canActivate():boolean{
-    if(localStorage.getItem("custId")===null){
-      alert("please login to continue")
-      this.router.navigateByUrl('/login')
+  canActivate(): boolean{
+    if (localStorage.getItem('AdminId') === null){
+      alert('please login to continue');
+      this.router.navigateByUrl('/login');
       return false;
     }
     else{
       return true;
     }
-    
+
   }
-  
+
 }

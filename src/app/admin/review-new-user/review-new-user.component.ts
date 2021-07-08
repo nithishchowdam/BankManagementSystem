@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { AdminServiceService } from '../admin-service.service';
 
 @Component({
@@ -8,13 +9,13 @@ import { AdminServiceService } from '../admin-service.service';
 })
 export class ReviewNewUserComponent implements OnInit {
 
-  registeresUsersList:any[]=[];
+  registeresUsersList: any[] = [];
 
-  newUserAadharid:any={};
+  newUserAadharid: any = {};
 
-  newAadharObj:any={};
+  newAadharObj: any = {};
 
-  constructor(private adminDsObj:AdminServiceService) { }
+  constructor(private adminDsObj: AdminServiceService,private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.getRegisteredData();
@@ -22,45 +23,45 @@ export class ReviewNewUserComponent implements OnInit {
 
   getRegisteredData(){
     this.adminDsObj.getRegisteredUserData().subscribe(
-      res=>{
-        this.registeresUsersList=res.rows;
-        console.log(this.registeresUsersList);
+      res => {
+        this.registeresUsersList = res.message.rows;
+
       },
-      err=>{
-        console.log("err in reviewing users is",err);
-        alert("something went wrong in reviewing reg users")
+      err => {
+        console.log('err in reviewing users is', err);
+        alert('something went wrong in reviewing reg users');
       }
-    )
+    );
   }
 
 
   onCreateRegisteredUser(registerUserObj){
-    
-    let newUserData=registerUserObj;
 
-    this.newUserAadharid.aadharno=newUserData[5];
+    const newUserData = registerUserObj;
+
+    this.newUserAadharid.aadharno = newUserData[5];
 
 //    this.newAadharObj.aadharno=newUserData[5];
 
     // console.log(newUserData);
 
     this.adminDsObj.createRegisteredUser(this.newUserAadharid).subscribe(
-      res=>{
-        if(res.message=="Account Created"){
-          alert("New Acc Created");
+      res => {
+        if (res.message == 'Account Created'){
+          this.toastr.success('Created','New Account');
           this.getRegisteredData();
 
         }
         else{
-          alert(`res.message`)
+          alert(res.message);
         }
       },
-      err=>{
-        console.log("err in creating ");
-        alert(" oops!,error in creating new user")
+      err => {
+        console.log('err in creating ');
+        alert(' oops!,error in creating new user');
 
       }
-    )
+    );
   }
 
 }

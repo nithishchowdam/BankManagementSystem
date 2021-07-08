@@ -1,1 +1,81 @@
-<p>user-account-info works!</p>
+<div class="container mt-5 mb-5 " style="background-color:cornsilk; border-radius: 10px;">
+  <div class="row">
+    <div class="col-2 "></div>
+    <div class="col-8 col-sm-10" style="   border-radius: 15px; ">
+<table class="table mt-5 mb-5">
+  <thead>
+    <tr>
+      <th scope="col" >
+          <div  >
+            <img width="150px" src="../../assets/dp.png" alt="">  
+          </div>
+          
+        </th>
+        
+        <th scope="col" >
+            <div class="mb-5">
+                <h4 >{{myData[1]}}</h4> 
+
+            </div> 
+        </th>
+    
+         
+      
+          
+      
+     
+
+      
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <th scope="row" colspan="2" >Account Id:</th>
+      <td class="text-primary w-50 ">{{myData[0]}}</td>
+    </tr>
+    <tr>
+      <th scope="row" colspan="2" >Account Name:</th>
+      <td class="text-primary w-50 ">{{myData[1]}}</td>
+
+    </tr>
+    <tr>
+      <th scope="row" colspan="2" >Date of Birth:</th>
+      <td  class="text-primary " >{{myData[4]| date}}</td>
+    </tr>
+    <tr>
+      <th scope="row" colspan="2" >Mobile Number:</th>
+      <td class="text-primary ">{{myData[5]}}</td>
+    </tr>
+    <tr>
+      <th scope="row" colspan="2" >Email Id: </th>
+      <td class="text-primary ">{{myData[6]}}</td>
+    </tr>
+    <tr>
+      <th scope="row" colspan="2" >Address:</th>
+      <td class="text-primary ">{{myData[3]}}</td>
+    </tr>
+    <tr>
+      <th scope="row" colspan="2">Aadhar number:</th>
+      <td class="text-primary  ">{{myData[7]}}</td>
+    </tr>
+    <tr>
+      <th scope="row" colspan="2" >Pan number:</th>
+      <td class="text-primary  ">{{myData[8]}}</td>
+    </tr>
+    <tr>
+      <th scope="row" colspan="2" >Account number:</th>
+      <td class="text-primary ">{{myData[10]}}</td>
+    </tr>
+    <tr>
+
+      <th scope="row" colspan="2" >Account Balance:</th>
+      <td class="text-primary">{{myData[11]}}</td>
+    </tr>
+    
+  </tbody>
+        </table>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>

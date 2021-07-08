@@ -1,8 +1,14 @@
 <div class="container table-content">
 
-    <p class="lead display-5">users data:</p>
+    <p class="lead display-5">Users Data</p>
+    <div class="row mb-3">
+        <div class="col-sm-8"></div>
+        <div class="col-sm-4">
+        <input type="text" name="search"  class="form-control border-2 border-dark" id="" placeholder="Search by Account Number" [(ngModel)]="searchTerm">
+        </div>
+    </div>
     <form #ref="ngForm" (ngSubmit)="saveUserData(ref.value)">
-    <table class=" table">
+    <table class="table">
         
         <thead>
             <th>CUST-NAME</th>
@@ -13,41 +19,41 @@
         </thead>
 
         <tbody>
-            <tr *ngFor="let userobj of usersList;let ind=index">
+            <tr *ngFor="let userobj of usersList| searchAccno:searchTerm | paginate: { itemsPerPage:12, currentPage:p};let ind=index">
                 <!--cust-name-->
                 <td>
                     <span *ngIf="!editUserStatus || editUserIndex!==ind">
                         {{userobj[1]}}
                     </span>
-                    <input type="text" name="custName" id="" *ngIf="editUserStatus && editUserIndex==ind" [(ngModel)]="editUserObj[1]">
+                    <input type="text" name="custname" id="" *ngIf="editUserStatus && editUserIndex==ind" [(ngModel)]="editUserObj[1]">
                 </td>
                 <!--cust-address-->
                 <td>
                     <span *ngIf="!editUserStatus || editUserIndex!==ind">
                         {{userobj[2]}}
                     </span>
-                    <input type="text" name="custAddress" id="" *ngIf="editUserStatus && editUserIndex==ind" [(ngModel)]="editUserObj[2]">
+                    <input type="text" name="custaddress" id="" *ngIf="editUserStatus && editUserIndex==ind" [(ngModel)]="editUserObj[2]">
                 </td>
             <!--cust-mobileno.-->
                 <td>
                     <span *ngIf="!editUserStatus || editUserIndex!==ind">
                         {{userobj[3]}}
                     </span>
-                    <input type="text" name="custphone" id="" *ngIf="editUserStatus && editUserIndex==ind" [(ngModel)]="editUserObj[3]">
+                    <input type="text" name="custmobileno" id="" *ngIf="editUserStatus && editUserIndex==ind" [(ngModel)]="editUserObj[3]">
                 </td>
                 <!--cust dob-->
                 <td>
                     <span *ngIf="!editUserStatus || editUserIndex!==ind">
                         {{userobj[4] | date}}
                     </span>
-                    <input type="text" name="custDob" id="" *ngIf="editUserStatus && editUserIndex==ind" [(ngModel)]="editUserObj[4]">
+                    <input type="text" name="custdob" id="" *ngIf="editUserStatus && editUserIndex==ind" [(ngModel)]="editUserObj[4]">
                 </td>
                 <!--email-->
                 <td>
                     <span *ngIf="!editUserStatus || editUserIndex!==ind">
                         {{userobj[5]}}
                     </span>
-                    <input type="text" name="custEmail" id="" *ngIf="editUserStatus && editUserIndex==ind" [(ngModel)]="editUserObj[5]">
+                    <input type="text" name="custemail" id="" *ngIf="editUserStatus && editUserIndex==ind" [(ngModel)]="editUserObj[5]">
                 </td>
                 <!--buttons of edit and delete-->
                 <td>
@@ -68,6 +74,9 @@
         </tbody>
 
     </table>
+    <div class="text-center mt-5 mb-5 p-3">
+        <pagination-controls (pageChange)="p=$event"></pagination-controls>
+    </div>
 
     </form>
 

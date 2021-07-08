@@ -7,8 +7,8 @@
                 <div class="mb-3 mt-2">
                     <label for="acc" class="form-label text-dark">Account Number</label>
             
-                    <input type="text" class="form-control text-dark" id="acc" name="accno" ngModel required minlength="10" maxlength="10"
-                        #refaccNo="ngModel" autocomplete="off">
+                    <input type="number" class="form-control text-dark" id="acc" name="accno" ngModel required minlength="10" maxlength="10"
+                        #refaccNo="ngModel"   placeholder=1234567XXX  autocomplete="off">
             
                     <p class="text-danger" *ngIf="(ref.submitted||refaccNo.touched)&&refaccNo.errors?.required">*
                        account number is required
@@ -20,20 +20,21 @@
                 </div>
 
                 <div>
+                    <h3 class="text-center text-success m-2">{{accountBalance}}</h3>
+                    <!-- <h3 class="text-center text-success mt-4 mb-4">Rs.12345.89</h3> -->
+                </div>
+                <div>
                     <button class="btn btn-success d-block mx-auto " type="submit">Fetch Balance</button>
                 </div>
 
 
-                <div>
-                    <h3 class="text-center text-success m-2">{{accountBalance}}</h3>
-                    <!-- <h3 class="text-center text-success mt-4 mb-4">Rs.12345.89</h3> -->
-                </div>
+               
 
                 <label for="wa" class="form-label text-dark">Enter Withdrawl Amount</label>
             
-                <input type="text" class="form-control text-dark" id="wa" name="amount" ngModel 
+                <input type="number" class="form-control text-dark" id="wa" name="amount" ngModel  placeholder="100" 
                        autocomplete="off">
-
+                   
 
                 <div class="mt-3">
                         <button class="btn btn-success d-block mx-auto " type="submit">withdraw</button>

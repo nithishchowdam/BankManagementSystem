@@ -8,59 +8,88 @@ import { AdminServiceService } from '../admin-service.service';
 })
 export class SeeTransactionsComponent implements OnInit {
 
-  accountBalance:any;
+  accountBalance: any;
 
-  constructor(private adminDsObj:AdminServiceService) { }
+  constructor(private adminDsObj: AdminServiceService) { }
 
   ngOnInit(): void {
   }
 
   onSubmitFetch(accNo){
 
-    let accountDetails=accNo.value;
-    let fromAccountNumber=accountDetails.fromAccNo;
-    console.log(fromAccountNumber)
+    const accountDetails = accNo.value;
+
+    const fromAccountNumber = accountDetails.fromAccNo;
+
 
     this.adminDsObj.getAccountBalance(fromAccountNumber).subscribe(
-      res=>{
-        this.accountBalance=res.rows[0][0];
+      res => {
+        if (res.message == 'Please enter a valid account number'){
+          alert(res.message);
+          location.reload();
+        }
+        else{
+
+        this.accountBalance = res.message.rows[0][0];
+        }
       },
-      err=>{
-        console.log("err in fetching account balance",err)
-        alert("something went wrong in fetching...try again")
+      err => {
+        console.log('err in fetching account balance', err);
+        alert('something went wrong in fetching...try again');
       }
-    )
+    );
 
 
-    let toAccountNumber=accountDetails.toAccNo;
-    let amount=accountDetails.amount;
-    console.log(toAccountNumber)
-    console.log(amount)
+    const toAccountNumber = accountDetails.toAccNo;
+    const amount = accountDetails.amount;
 
-    if(toAccountNumber!==undefined || null || ""){
+    if ((toAccountNumber != '') && (amount != '')){
+      if (accountDetails.amount < 100){
+        alert('Please enter amount greater than 100');
 
-      accountDetails.prevbal=this.accountBalance;
+      }
+      else{
+        if (amount > this.accountBalance){
+          alert('Insufficient Balance');
+        }
+        else{
+
+      accountDetails.prevbal = this.accountBalance;
 
       this.adminDsObj.transactions(accountDetails).subscribe(
-        res=>{
-          if(res.message=="Transaction Successfull"){
-            alert("transaction succesfull")
+        res => {
+          if (res.message == 'Transaction Successfull'){
+            // for fetching updated balance
+            this.adminDsObj.getAccountBalance(fromAccountNumber).subscribe(
+              res => {
+                this.accountBalance = res.message.rows[0][0];
+                alert('Amount Rs.' + amount + '  Successfully Transfered  \n to  Account number-' + toAccountNumber + '\n from Account -' + fromAccountNumber + '\n Available balance -' + this.accountBalance);
+                location.reload();
+
+              },
+              err => {
+                console.log('err in fetching account balance', err);
+                alert('something went wrong in fetching...try again');
+              }
+            );
+
           }
           else{
             alert(res.message);
           }
         },
-        err=>{
-          console.log("err in transaction",err)
-          alert("oops,error in transaaction...try again")
+        err => {
+          console.log('err in transaction', err);
+          alert('oops,error in transaaction...try again');
         }
-      )
+      );
 
 
     }
 
 
-
+  }
+  }
 
   }
 

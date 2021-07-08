@@ -7,19 +7,21 @@ import { AdminServiceService } from '../admin-service.service';
   styleUrls: ['./view-transactions.component.css']
 })
 export class ViewTransactionsComponent implements OnInit {
+  searchTerm:string;
+  searchTranId:string;
+  p = 1;
+  transactionData: any[] = [];
 
-  transactionData:any[]=[];
 
-
-  constructor(private adminDsObj:AdminServiceService) { }
+  constructor(private adminDsObj: AdminServiceService) { }
 
   ngOnInit(): void {
     this.adminDsObj.getTransactionData().subscribe(
-      res=>{
-        this.transactionData=res.rows;
-        console.log(this.transactionData)
+      res => {
+        this.transactionData = res.message.rows;
+
       }
-    )
+    );
 
   }
 

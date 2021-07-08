@@ -1,32 +1,36 @@
-<p class="lead display-6">Transaction History :</p>
+<p class="display-6 text-center">Transaction History </p>
 
-<div class="table-content">
-<div class="table">
-    <thead>
-        <th>TRAN-ID</th>
-        <th>TRAN-DATE</th>
-        <th>ACC-NO</th>
-        <th>TRANDESC</th>
-        <th>DEBIT</th>
-        <th>CREDIT</th>
-        <th>AVAIL-BAL</th>
-        
-        
-    </thead>
+<div class="row mb-3">
+  <div class="col-sm-8"></div>
+  <div class="col-sm-4">
+  <input type="text" name="search"  class="form-control border-2 border-dark" id="" placeholder="Search by Account Number" [(ngModel)]="searchTerm">
+  </div>
+</div>
 
-    <tbody>
-        <tr *ngFor="let transcObj of transactionData ">
-            <td>{{transcObj[0]}}</td>
-            <td>{{transcObj[1] | date}}</td>
-            <td>{{transcObj[2]}}</td>
-            <td>{{transcObj[3]}}</td>
-            <td>{{transcObj[4]}}</td>
-            <td>{{transcObj[5]}}</td>
-            <td>{{transcObj[6]}}</td>
-            
-
-        </tr>
-    </tbody>
-
-    </div>
+    <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>TRAN-ID</th>
+            <th>TRAN-DATE</th>
+            <th>ACC-NO</th>
+            <th>TRANDESC</th>
+            <th>DEBIT</th>
+            <th>CREDIT</th>
+            <th>AVAIL-BAL</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let transcObj of transactionData  | searchTranAccno : searchTerm| paginate: { itemsPerPage:12, currentPage:p}; ">
+                <td>{{transcObj[0]}}</td>
+                <td>{{transcObj[1] | date}}</td>
+                <td>{{transcObj[2]}}</td>
+                <td>{{transcObj[3]}}</td>
+                <td>{{transcObj[4]}}</td>
+                <td>{{transcObj[5]}}</td>
+                <td>{{transcObj[6]}}</td>
+            </tr>
+        </tbody>
+      </table>
+      <div class="text-center mt-5 mb-5 p-3">
+        <pagination-controls (pageChange)="p=$event"></pagination-controls>
     </div>

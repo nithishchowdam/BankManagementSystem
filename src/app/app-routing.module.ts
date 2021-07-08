@@ -13,22 +13,22 @@ import { UserChangePasswordComponent } from './user-change-password/user-change-
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
-  {path:'home',component:HomeComponent},
-  {path:'login',component:LoginComponent},
-  {path:'register',component:RegisterComponent},
-  {path:'userProfile',component:UserProfileComponent},
-  {path:'userProfile/transferfunds',component:TransferFundsComponent},
-  {path:'userProfile/transactionstatements',component:TransactionStatementComponent},
-  {path:'userProfile/accountinfo',component:UserAccountInfoComponent},
-  {path:'userProfile/changepassword-user',component:UserChangePasswordComponent},
-  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),canActivate:[AdminGuard] },
- 
-  {path:'', redirectTo:'/home',pathMatch:'full'},
-  {path:'**',component:PagenotfoundComponent}
+  {path: 'home', component: HomeComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: 'userProfile', component: UserProfileComponent},
+  {path: 'userProfile/transferfunds', component: TransferFundsComponent},
+  {path: 'userProfile/transactionstatements', component: TransactionStatementComponent},
+  {path: 'userProfile/accountinfo', component: UserAccountInfoComponent},
+  {path: 'userProfile/changepassword-user', component: UserChangePasswordComponent},
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate: [AdminGuard] },
+
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: '**', component: PagenotfoundComponent}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

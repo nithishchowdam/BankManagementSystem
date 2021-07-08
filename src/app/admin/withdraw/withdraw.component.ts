@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { resetFakeAsyncZone } from '@angular/core/testing';
 import { AdminServiceService } from '../admin-service.service';
 
 @Component({
@@ -8,72 +9,104 @@ import { AdminServiceService } from '../admin-service.service';
 })
 export class WithdrawComponent implements OnInit {
 
-  accountBalance:any;
+  accountBalance: any;
 
-  constructor(private adminDsObj:AdminServiceService) { }
+  constructor(private adminDsObj: AdminServiceService) { }
 
   ngOnInit(): void {
   }
 
   onSubmitFetch(accObj){
-    
-    let accountdetails=accObj.value;
 
-    let accountNumber=accountdetails.accNo;
-    let withdrawAmount=accountdetails.withdraw;
+    const accountdetails = accObj.value;
+    const accountNumber = accountdetails.accno;
+    const withdrawAmount = accountdetails.amount;
 
-    console.log(accountNumber);
-    console.log(withdrawAmount);
+// feteching account balance
+    if (accountNumber != undefined || null || ''){
 
-// feteching account balance 
-    if(accountNumber!=undefined || null || ""){
-      
     this.adminDsObj.getAccountBalance(accountNumber).subscribe(
-     res=>{
-       this.accountBalance=res.rows[0][0];
+     res => {
+       if (res.message == 'Please enter a valid account number'){
+         alert(res.message);
+         location.reload();
+       }
+       else{
+
+       this.accountBalance = res.message.rows[0][0];
+       }
      },
-     err=>{
+     err => {
        console.log(err);
-       alert("something went wrong in fetching balance")
+       alert('something went wrong in fetching balance');
      }
-   )
+   );
     }
 
-// withdraw amount 
+// withdraw amount
 
 //  accObj.prevBalance=this.accountBalance;
-    if(withdrawAmount!=( "" || undefined || null)){
-    accountdetails.prevbal=this.accountBalance;
-    console.log(accountdetails);
+    if (withdrawAmount != ''){
+      if (withdrawAmount < 100){
+        alert('Please enter amount greater than 100');
 
-  this.adminDsObj.getWithdrawDetails(accountdetails).subscribe(
-
-    res=>{
-      if(res.message=="Withdrawl Successfull"){
-        alert("withdraw completed");
       }
-      
+      else{
+        if (withdrawAmount > this.accountBalance){
+          alert('Insufficient Balance');
+        }
+        else{
+    accountdetails.prevbal = this.accountBalance;
+
+    this.adminDsObj.getWithdrawDetails(accountdetails).subscribe(
+
+    res => {
+
+      if (res.message == 'Withdrawl Successfull'){
+        // for updating the balance
+        this.adminDsObj.getAccountBalance(accountNumber).subscribe(
+          res => {
+            this.accountBalance = res.message.rows[0][0];
+            alert('Withdrawl Completed from \n Account number-' + accountNumber + '\n Available balance -' + this.accountBalance);
+            location.reload();
+          },
+          err => {
+            console.log(err);
+            alert('something went wrong in fetching balance');
+          }
+
+        );
+
+        //
+
+
+      }
+      else{
+        alert(res.message);
+      }
+
+
     },
 
-    err=>{
-      
-      console.log("err in withdraw is",err)
-      alert("error in withdraw")
+    err => {
+
+      console.log('err in withdraw is', err);
+      alert('error in withdraw');
     }
-  )
-  }
-
- 
-
-
-  
-
-
-
+  );
   }
 
 
 
 
-  
+}
+
+
+
+  }
+
+  }
+
+
+
 }

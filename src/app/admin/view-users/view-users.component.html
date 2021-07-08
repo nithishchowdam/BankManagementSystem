@@ -1,7 +1,7 @@
-<p class="display-5">Users List:</p>
+<p class="display-5 text-center">Users List</p>
 
-<div class="table-content container-fluid">
-    <div class="table">
+<!-- <div class="table-content container-fluid">
+    <table class="table">
         <thead>
             <th>NAME</th>
             <th>ADDRESS</th>
@@ -30,7 +30,46 @@
             </tr>
         </tbody>
 
+    </table>
+</div> -->
+
+<div class="row mb-3 ">
+    <div class="col-sm-8"></div>
+    <div class="col-sm-4 ">
+    <input type="text" name="search"  class="form-control border-2 border-dark" id="" placeholder="Search by Account Number" [(ngModel)]="searchTerm">
     </div>
 </div>
-
+<table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>NAME</th>
+            <th>ADDRESS</th>
+            <th>MOBILENO</th>
+            <th>DOB</th>
+            <th>EMAIL</th>
+            <th>ACCNO</th>
+            <th>ACCBAL</th>
+            <th>AADHAR</th>
+            <th>PAN</th>
+            <th>STATUS</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let userobj of usersList | searchAccno : searchTerm | paginate: { itemsPerPage:12, currentPage:p};let ind=index ">
+            <td>{{userobj[1]}}</td>
+            <td>{{userobj[2]}}</td>
+            <td>{{userobj[3] }}</td>
+            <td>{{userobj[4] | date}}</td>
+            <td>{{userobj[5]}}</td>
+            <td>{{userobj[6]}}</td>
+            <td>{{userobj[7]}}</td>
+            <td>{{userobj[8]}}</td>
+            <td>{{userobj[9]}}</td>
+            <td>{{userobj[10]}}</td>
+        </tr>
+    </tbody>
+  </table>
+  <div class="text-center mt-5 mb-5 p-3">
+    <pagination-controls (pageChange)="p=$event"></pagination-controls>
+</div>
 
