@@ -49,16 +49,15 @@
                     <label for="pw" class="form-label text-dark"><i class="fas fa-lock"></i>Password</label>
                     <input type="password" class="form-control" id="pw" name="password" ngModel required 
                         #refPassword="ngModel" >
-            
-            
                         <p class="text-danger" *ngIf="(ref.submitted||refPassword.touched)&&refPassword.errors?.required">*
                             Password is required
                         </p>
+                        <a routerLink="forgotPass" class="float-end d-block"> forgot password?</a>
             
                         
                 </div>
     
-                <button type="submit" class="btn btn-success d-block mx-auto m-4">Login</button>
+                <button type="submit" class="btn btn-success d-block mx-auto mt-5 mb-2">Login</button>
     
                 <p class="lead mt-2 mx-auto text-center" id="dhaa">Dont have an account?</p>
     

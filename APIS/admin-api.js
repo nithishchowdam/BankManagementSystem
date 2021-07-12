@@ -57,6 +57,25 @@ oracledb.getConnection(
         res.send({message:"Password Updated Successfully"});
     }))
 
+    //forgot password of amdin
+    adminApi.put("/forgotpassword",expressErrorHandler(async(req,res)=>{
+        let id=req.body.id;
+        let tomailres=await adminDataBase.execute(`select email from admin where adminid=${id}`);
+        if(tomailres.rows.length==0){
+            res.send({message:"Invalid Id"})
+        }
+        else{
+        let tomail=tomailres.rows[0][0];   
+        //auto generating new password
+        let newPass=makePassword(8);
+        //updating newpassword in admin table
+        await adminDataBase.execute(`update admin set password='${newPass}' where adminid=${id}`)
+        //sending new password to user mail id using newpassemail function
+        let funcres=newPassmail(tomail,newPass);
+        res.send({message:"New password sent to mail"});
+        }
+    }))
+
     //get request for users list from admin
     adminApi.get("/getuserslist",expressErrorHandler( async(req,res)=>{
         let usersList= await adminDataBase.execute("select customer.custid,custname,custaddress,custmobileno,custdob,custemail,accno,accbal,custaadharno,custpanno,status from customer,account where customer.custid=account.custid order by accno desc");
@@ -282,6 +301,7 @@ oracledb.getConnection(
 
     }))
     //*********
+    //nodemailer
 
     var transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -290,13 +310,13 @@ oracledb.getConnection(
           pass: 'narcos2021'
         }
       });
-      
+      //function for sending  new  login details to user through registered mail
       function mail(to,id,pass,accnum){
       var mailOptions = {
         from: 'narcosbank21@gmail.com',
-        to: 'anudeepeloori@gmail.com',
-        subject: 'Sending Email using Node.js',
-        text: `Customer Id : ${id} \n Password : ${pass} \n Account Number :${accnum} `
+        to: `${to}`,
+        subject: 'New account login details',
+        text: `Welcome to Narcos Bank .Your new login details are \n Customer Id : ${id} \n Password : ${pass} \n Account Number :${accnum} \n Please change your password.`
       };
       
       transporter.sendMail(mailOptions, function(error, info){
@@ -306,7 +326,26 @@ oracledb.getConnection(
           return 'Email sent';
         }
       });
+      }
+
+      //fuction for sending new password to admin through registered mail
+      function newPassmail(to,pass){
+        var mailOptions = {
+          from: 'narcosbank21@gmail.com',
+          to: `${to}`,
+          subject: 'New Password',
+          text: `Your new password is ${pass}. \n Please change your password after successfull login. `
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            return error;
+          } else {
+            return 'Email sent';
+          }
+        });
     }
+    
     
 
 

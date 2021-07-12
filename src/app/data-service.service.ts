@@ -58,6 +58,18 @@ export class DataServiceService {
       return this.hc.put('/user/changepassword/' + localStorage.getItem('custId'), passwordDetails);
     }
 
+    adminForgotPassword(adminId):Observable<any>{
+      return this.hc.put('/admin/forgotpassword',adminId)
+
+    }
+
+    userForgotPassword(userId):Observable<any>{
+      return this.hc.put('/user/forgotpassword',userId)
+
+    }
+
+
+
 
 
 

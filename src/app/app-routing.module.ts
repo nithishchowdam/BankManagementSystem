@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminGuard } from './admin.guard';
 import { UpdateAccountsComponent } from './admin/update-accounts/update-accounts.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path:'login/forgotPass',component:ForgotPasswordComponent},
   {path: 'userProfile', component: UserProfileComponent},
   {path: 'userProfile/transferfunds', component: TransferFundsComponent},
   {path: 'userProfile/transactionstatements', component: TransactionStatementComponent},

@@ -50,12 +50,13 @@ p {
   border-color: #F5B02E; }
 
 .animate-border.border-orange:after {
-  border-right-color: #007bff;
-  border-left-color: #007bff; }
-
-.animate-border.border-ash:after {
   border-right-color: #EEF0EF;
   border-left-color: #EEF0EF; }
+ 
+
+.animate-border.border-ash:after {
+  border-right-color: #007bff;
+  border-left-color: #007bff; }
 
 .animate-border.border-offwhite:after {
   border-right-color: #F7F9F8;

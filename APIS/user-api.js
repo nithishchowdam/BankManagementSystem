@@ -1,7 +1,8 @@
 //create mini express
 const exp = require('express');
 const userApi = exp.Router();
-const moment=require("moment")
+const moment=require("moment");
+const nodemailer=require("nodemailer")
 const oracledb = require('oracledb');
 oracledb.autoCommit = true;
 const expressErrorHandler = require("express-async-handler");
@@ -105,6 +106,37 @@ oracledb.getConnection(
         res.send({message:"Password Successfully Updated"})
     }))
 
+    //forgot password of user
+    userApi.put("/forgotpassword",expressErrorHandler(async(req,res)=>{
+        let id=req.body.id;
+        let tomailres=await userDataBase.execute(`select custemail from customer where custid=${id}`);
+        if(tomailres.rows.length==0){
+            res.send({message:"Invalid Id"})
+        }
+        else{
+        let tomail=tomailres.rows[0][0];
+        //auto generating new password
+        let newPass=makePassword(8);
+        //updating newpassword in admin table
+        await userDataBase.execute(`update customer set custpassword='${newPass}' where custid=${id}`)
+        //sending new password to user mail id using newpassemail function
+        let funcres=newPassmail(tomail,newPass);
+        res.send({message:"New password sent to mail"});
+        }
+    }))
+
+
+    //****function for autogenerating a random password
+    function makePassword(maxLength) {
+        var collectionOfLetters = "@$&#%ABCDEFGHI0123456789JKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        var generatedPassword = "";
+        var size = collectionOfLetters.length;
+        for (var i = 0; i < maxLength; ++i) {
+           generatedPassword = generatedPassword + collectionOfLetters.charAt(Math.floor(Math.random() * size));
+        }
+         return generatedPassword;
+    }
+
     //transaction history of the user
     userApi.get("/transactionhistory/:accno",expressErrorHandler(async(req,res)=>{
         let accnum=(+req.params.accno);
@@ -153,6 +185,35 @@ oracledb.getConnection(
 
 
     }))
+
+    //nodemailer
+
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'narcosbank21@gmail.com',
+          pass: 'narcos2021'
+        }
+      });
+
+    //fuction for sending new password to admin through registered mail
+    function newPassmail(to,pass){
+        var mailOptions = {
+          from: 'narcosbank21@gmail.com',
+          to: `${to}`,
+          subject: 'New Password',
+          text: `Your new password is ${pass}. \n Please change your password after successfull login. `
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            return error;
+          } else {
+            return 'Email sent';
+          }
+        });
+    }
+    
 
 
 

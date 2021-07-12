@@ -7,7 +7,7 @@ import { DataServiceService } from '../data-service.service';
   styleUrls: ['./user-account-info.component.css']
 })
 export class UserAccountInfoComponent implements OnInit {
-  myData: any;
+  myData:any[]=[];
   constructor(private userObj: DataServiceService) { }
 
   ngOnInit(): void {
@@ -17,7 +17,6 @@ export class UserAccountInfoComponent implements OnInit {
       res => {
 
         this.myData = res.message.rows[0];
-        console.log(this.myData);
       },
       err => {
         console.log('error is ', err);

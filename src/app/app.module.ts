@@ -18,6 +18,7 @@ import { UserAccountInfoComponent } from './user-account-info/user-account-info.
 import {NgxPaginationModule} from 'ngx-pagination';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 
@@ -34,7 +35,8 @@ import { ToastrModule } from 'ngx-toastr';
     TransferFundsComponent,
     TransactionStatementComponent,
     UserChangePasswordComponent,
-    UserAccountInfoComponent
+    UserAccountInfoComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
