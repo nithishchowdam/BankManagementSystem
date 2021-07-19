@@ -85,13 +85,13 @@ oracledb.getConnection(
     
     //updating userdetails by admin
     adminApi.put("/updateuser/:id",expressErrorHandler(async(req,res)=>{
-        let id=(+req.params.id);
+        let idUp=(+req.params.id);
         let updateObj=req.body;
         let custName=updateObj.custname,custAddress=updateObj.custaddress,custDob=updateObj.custdob,custPhone=updateObj.custmobileno,custEmail=updateObj.custemail;
         custDob=moment(custDob).utc().format('YYYY-MM-DD')
         let fdate=await adminDataBase.execute(`SELECT TO_CHAR(TO_DATE('${custDob}','YYYY-MM-DD'),'DD-MON-YYYY') FROM DUAL`)
         bind=fdate.rows[0]
-        await adminDataBase.execute(`update customer set  custdob=:1,custName='${custName}',custaddress='${custAddress}',custmobileno='${custPhone}',custemail='${custEmail}' where custid=${id}`,bind);
+        await adminDataBase.execute(`update customer set  custdob=:1,custName='${custName}',custaddress='${custAddress}',custmobileno='${custPhone}',custemail='${custEmail}' where custid=${idUp}`,bind);
         res.send({message:"Updated Successfully"})
     }))
 

@@ -42,6 +42,10 @@ export class TransferFundsComponent implements OnInit {
    transcDetails.prevbal = this.prevBalance;
    transcDetails.fromAccNo = localStorage.getItem('accountNumber');
 
+   if(transcDetails.toAccNo==transcDetails.fromAccNo){
+     alert("Invalid Transaction  \n Money cant be transfered to same account number")
+   }
+   else{
 
    if (transcDetails.amount < 100){
      alert('Please enter amount greater than 100');
@@ -84,6 +88,6 @@ export class TransferFundsComponent implements OnInit {
   }
 
 
-
+  }
 
 }

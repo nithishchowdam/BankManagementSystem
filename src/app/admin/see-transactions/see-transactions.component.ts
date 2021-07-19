@@ -20,6 +20,10 @@ export class SeeTransactionsComponent implements OnInit {
     const accountDetails = accNo.value;
 
     const fromAccountNumber = accountDetails.fromAccNo;
+    if(accountDetails.toAccNo==accountDetails.fromAccNo){
+      alert("Invalid Transaction  \n Money cant be transfered to same account number")
+    }
+    else{
 
 
     this.adminDsObj.getAccountBalance(fromAccountNumber).subscribe(
@@ -92,5 +96,6 @@ export class SeeTransactionsComponent implements OnInit {
   }
 
   }
+}
 
 }
