@@ -57,7 +57,7 @@ export class TransferFundsComponent implements OnInit {
 
        if (res.message == 'Transaction Successfull'){
           this.updatedBalance();
-          alert(' Amount Rs.' + transcDetails.amount + ' Successfully Transfered \n To Account Number : ' + transcDetails.toAccNo);
+          alert(' Amount Rs.' + transcDetails.amount + ' Successfully Transfered \n To Account Number :  ' + transcDetails.toAccNo);
           ref.reset();
        }
        else{

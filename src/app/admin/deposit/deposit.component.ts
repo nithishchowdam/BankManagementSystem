@@ -61,7 +61,7 @@ export class DepositComponent implements OnInit {
             this.adminDsObj.getAccountBalance(accountNumber).subscribe(
               res => {
                 this.accountBalance = res.message.rows[0][0];
-                alert('Successfully Deposited to  \n Account number-' + accountNumber + '\n Available balance -' + this.accountBalance);
+                alert('Successfully Deposited to  \n Account number-' + accountNumber + '\n Available balance : ' + this.accountBalance);
                 location.reload();
                  },
 

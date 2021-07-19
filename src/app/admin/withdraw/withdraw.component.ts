@@ -67,7 +67,7 @@ export class WithdrawComponent implements OnInit {
         this.adminDsObj.getAccountBalance(accountNumber).subscribe(
           res => {
             this.accountBalance = res.message.rows[0][0];
-            alert('Withdrawl Completed from \n Account number-' + accountNumber + '\n Available balance -' + this.accountBalance);
+            alert('Withdrawl Completed from \n Account number-' + accountNumber + '\n Available balance : ' + this.accountBalance);
             location.reload();
           },
           err => {

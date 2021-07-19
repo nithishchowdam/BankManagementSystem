@@ -58,7 +58,6 @@ oracledb.getConnection(
         
         let balanceInquiryId=(+req.params.id);
         let balance=await userDataBase .execute(`select accbal from account where custid=${balanceInquiryId}`);
-
         res.send({message:balance});
 
     }))

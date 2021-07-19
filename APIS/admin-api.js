@@ -37,7 +37,7 @@ oracledb.getConnection(
         if(adminAuth.rows.length==0){
             res.send({message:"Invalid Id"})
         }
-         //if it returns non empty array then verify password
+        //if it returns non empty array then verify password
         else{
         if(adminAuth.rows[0]==inputPassword){
            res.send({message:"successful"})
