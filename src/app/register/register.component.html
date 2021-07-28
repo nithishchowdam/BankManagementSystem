@@ -63,13 +63,16 @@
   
               <div class="mb-3">
                   <label for="em" class="form-label text-dark" >Email</label>
-                  <input type="email" class="form-control" id="em" name="email" ngModel required maxlength="45" placeholder="example123@gmail.com"
+                  <input type="email" class="form-control" id="em" name="email" ngModel [email]="true" required maxlength="45" placeholder="example123@gmail.com" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
                       #refemail="ngModel" >
           
           
                       <p class="text-danger" *ngIf="(ref.submitted||refemail.touched)&&refemail.errors?.required">*
                           email is required
-                      </p>     
+                      </p>
+                      <p class="text-danger" *ngIf="(ref.submitted||refemail.touched)&&refemail.errors?.pattern">*
+                        Please enter a valid email
+                    </p>       
                       <p class="text-danger" *ngIf="(ref.submitted||refemail.touched)&&refemail.errors?.maxlength">*
                         Length should not exceed 45
                     </p>   

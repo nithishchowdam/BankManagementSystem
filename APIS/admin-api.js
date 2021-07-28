@@ -99,10 +99,14 @@ oracledb.getConnection(
     adminApi.delete("/deleteaccount/:id",expressErrorHandler( async(req,res)=>{
         //accesing the id that to be deleted from url
         let deleteId=(+req.params.id);
+        let deleteAcc=await adminDataBase.execute(`select accno from account where custid=${deleteId}`)
         //deleting account details
         await adminDataBase.execute(`delete from account where custid=${deleteId}`);
         //deleting the user details 
         await adminDataBase.execute(`delete from customer where custid=${deleteId}`);
+        //deleting the user transactions
+        let deleteAccNum=deleteAcc.rows[0][0]
+        await adminDataBase.execute(`delete from transaction where accno=${deleteAccNum}`)
         res.send({message:"User Account Deleted Successfully"});
     }))
 
