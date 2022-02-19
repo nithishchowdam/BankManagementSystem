@@ -7,13 +7,15 @@ const expressErrorHandler = require("express-async-handler");
 const nodemailer=require("nodemailer")
 //const { response, json } = require('express');
 const uniqid=require('uniqid');
+const bcrypt = require('bcrypt');
+require('dotenv').config()
 let adminDataBase;
 
 //connecting to oracle database
 oracledb.getConnection(
     {
-      user          : "NIT",
-      password      : "NIT",
+      user          : process.env.DBUSER,
+      password      : process.env.DBPASS,
       connectString : "localhost/XE"
     },
     function(err, connection)
@@ -33,18 +35,22 @@ oracledb.getConnection(
         inputPassword=loginObj.password;
         //retreviewing the password respected to the username received
         let adminAuth =await adminDataBase.execute(`SELECT password from admin where adminid=${inputId}`)
+        hashedPassword=adminAuth.rows[0][0];
+        passwordMatched=false;
         //if it returns empty array then invalid id 
         if(adminAuth.rows.length==0){
             res.send({message:"Invalid Id"})
         }
         //if it returns non empty array then verify password
         else{
-        if(adminAuth.rows[0]==inputPassword){
-           res.send({message:"successful"})
-        }
-        else{
-            res.send({message:"Invalid Password"})
-        }
+            bcrypt.compare(inputPassword, hashedPassword).then(function(result) {
+                if(result){
+                    res.send({message:"successful"})
+                }
+                else{
+                    res.send({message:"unsuccessfull"})
+                }
+            });
         }
     }))
 
@@ -52,7 +58,8 @@ oracledb.getConnection(
     adminApi.put("/changepassword/:id",expressErrorHandler(async(req,res)=>{
         let adId=(+req.params.id);
         let newPassword=req.body.newPassword;
-        await adminDataBase.execute(`update admin set password='${newPassword}' where adminid=${adId}`);
+        newHashedPassword=await bcrypt.hash(newPassword, 10);
+        await adminDataBase.execute(`update admin set password='${newHashedPassword}' where adminid=${adId}`);
         //console.log(await adminDataBase.execute(`select * from admin`));
         res.send({message:"Password Updated Successfully"});
     }))
@@ -68,8 +75,9 @@ oracledb.getConnection(
         let tomail=tomailres.rows[0][0];   
         //auto generating new password
         let newPass=makePassword(8);
+        newHashedPassword=await bcrypt.hash(newPass, 10);
         //updating newpassword in admin table
-        await adminDataBase.execute(`update admin set password='${newPass}' where adminid=${id}`)
+        await adminDataBase.execute(`update admin set password='${newHashedPassword}' where adminid=${id}`)
         //sending new password to user mail id using newpassemail function
         let funcres=newPassmail(tomail,newPass);
         res.send({message:"New password sent to mail"});
@@ -181,8 +189,8 @@ oracledb.getConnection(
         newCustDetails=newCustDetails.rows[0];
         //await adminDataBase.execute(`insert into customer values(${newId},'${newCustDetails[0]}','${newPassword}','${newCustDetails[2]}','${newCustDetails[3]}',${newCustDetails[4]},'${newCustDetails[1]}',${newCustDetails[5]},'${newCustDetails[6]}')`)
         //inserting new  user details into customer table
-
-        let bindCust=[newId,newCustDetails[0],newPassword,newCustDetails[2],newCustDetails[3],newCustDetails[4],newCustDetails[1],newCustDetails[5],newCustDetails[6]];
+        newHashedPassword=await bcrypt.hash(newPassword, 10); 
+        let bindCust=[newId,newCustDetails[0],newHashedPassword,newCustDetails[2],newCustDetails[3],newCustDetails[4],newCustDetails[1],newCustDetails[5],newCustDetails[6]];
         await adminDataBase.execute(`insert into customer values(:1,:2,:3,:4,:5,:6,:7,:8,:9)`,bindCust);
         //inserting account details into accounts table
         let bindAcc=[newId,newAccNo,newAccBal,'active'];
@@ -209,7 +217,8 @@ oracledb.getConnection(
         let fdate=await adminDataBase.execute(`SELECT TO_CHAR(TO_DATE('${newUserDetailsObj.dob}','YYYY-MM-DD'),'DD-MON-YYYY') FROM DUAL`)
         fbind=fdate.rows[0][0]
         //inserting new user details into customer table
-        let bindAdminCust=[newUserId,newUserDetailsObj.username,newUserPassword,newUserDetailsObj.address,fbind,newUserDetailsObj.phoneno,newUserDetailsObj.email,newUserDetailsObj.aadharno,newUserDetailsObj.panno];
+        newHashedPassword=await bcrypt.hash(newUserPassword, 10);
+        let bindAdminCust=[newUserId,newUserDetailsObj.username,newHashedPassword,newUserDetailsObj.address,fbind,newUserDetailsObj.phoneno,newUserDetailsObj.email,newUserDetailsObj.aadharno,newUserDetailsObj.panno];
         await adminDataBase.execute(`insert into customer values(:1,:2,:3,:4,:5,:6,:7,:8,:9)`,bindAdminCust);
         //inserting new ubindAdminAcc=[]ser accout details into account table
         let bindAdminAcc=[newUserId,newUserAccNo,newUserAccBal,'active'];
@@ -310,8 +319,8 @@ oracledb.getConnection(
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'narcosbank21@gmail.com',
-          pass: 'narcos2021'
+          user: process.env.MAILUSERNAME,
+          pass: process.env.MAILPASSWORD
         }
       });
       //function for sending  new  login details to user through registered mail

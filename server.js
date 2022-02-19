@@ -2,6 +2,7 @@
 const exp = require("express")
 const app = exp();
 const path=require("path")
+require('dotenv').config()
 
 //connecting angular with express server
 app.use(exp.static(path.join(__dirname,"./dist/BankManagementSystem/")))
@@ -31,6 +32,7 @@ app.use((err, req, res, next) => {
 
 
 
+
 //assign port
-const port = 3000;
+const port=process.env.PORT; 
 app.listen(port, () => console.log(`server on ${port}...`))

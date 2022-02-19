@@ -7,12 +7,14 @@ const oracledb = require('oracledb');
 oracledb.autoCommit = true;
 const expressErrorHandler = require("express-async-handler");
 const uniqid=require('uniqid');
+const bcrypt = require('bcrypt');
+require('dotenv').config()
 let userDataBase;
 //connecting to oracle database
 oracledb.getConnection(
     {
-      user          : "NIT",
-      password      : "NIT",
+      user          : process.env.DBUSER,
+      password      : process.env.DBPASS,
       connectString : "localhost/XE"
     },
     function(err, connection)
@@ -31,18 +33,22 @@ oracledb.getConnection(
         inputPassword=loginObj.password;
         //retreviewing the password respected to the username received
         let userList =await userDataBase.execute(`SELECT custpassword from customer where custid=${inputId}`)
+        hashedPassword=userList.rows[0][0];
+        passwordMatched=false;
         //if it returns empty array then invalid id 
         if(userList.rows.length==0){
             res.send({message:"Invalid Id"})
         }
         //if it returns non empty array then verify password 
         else{
-       if(userList.rows[0]==inputPassword){
-           res.send({message:"successful"})
-       }
-        else{
-            res.send({message:"Invalid Password"})
-        }
+            bcrypt.compare(inputPassword, hashedPassword).then(function(result) {
+                if(result){
+                    res.send({message:"successful"})
+                }
+                else{
+                    res.send({message:"unsuccessfull"})
+                }
+            });
      }
     }))
 
@@ -101,7 +107,8 @@ oracledb.getConnection(
         let changePasswordObj=req.body;
         let changeId=(+req.params.id);
         let updatedPassword=changePasswordObj.newPassword;
-        await userDataBase.execute(`update customer set custpassword='${updatedPassword}' where custid=${changeId}`)
+        newHashedPassword=await bcrypt.hash(updatedPassword, 10);
+        await userDataBase.execute(`update customer set custpassword='${newHashedPassword}' where custid=${changeId}`)
         res.send({message:"Password Successfully Updated"})
     }))
 
@@ -117,7 +124,8 @@ oracledb.getConnection(
         //auto generating new password
         let newPass=makePassword(8);
         //updating newpassword in admin table
-        await userDataBase.execute(`update customer set custpassword='${newPass}' where custid=${id}`)
+        newHashedPassword=await bcrypt.hash(newPass, 10);
+        await userDataBase.execute(`update customer set custpassword='${newHashedPassword}' where custid=${id}`)
         //sending new password to user mail id using newpassemail function
         let funcres=newPassmail(tomail,newPass);
         res.send({message:"New password sent to mail"});
@@ -190,15 +198,15 @@ oracledb.getConnection(
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'narcosbank21@gmail.com',
-          pass: 'narcos2021'
+          user: process.env.MAILUSERNAME,
+          pass: process.env.MAILPASSWORD
         }
       });
 
     //fuction for sending new password to admin through registered mail
     function newPassmail(to,pass){
         var mailOptions = {
-          from: 'narcosbank21@gmail.com',
+          from: process.env.MAILUSERNAME,
           to: `${to}`,
           subject: 'New Password',
           text: `Your new password is ${pass}. \n Please change your password after successfull login. `

@@ -7,7 +7,7 @@
                 <div class="mb-3 mt-3">
                     <label for="pass" class="form-label text-dark">Enter Password</label>
 
-                    <input type="password" class="form-control text-dark" id="pass" name="password" ngModel #refPassword="ngModel" required minlength="6" maxlength="9" pattern="(?=.*[@#$%^&*]).{6,9}">
+                    <input type="password" class="form-control text-dark" id="pass" name="password" ngModel #refPassword="ngModel" required minlength="6" maxlength="15" pattern="(?=.*[@#$%^&*]).{6,15}">
                     <p class="text-danger" *ngIf="(ref.submitted||refPassword.touched)&&refPassword.errors?.required">*
                         Password is required
                     </p>
