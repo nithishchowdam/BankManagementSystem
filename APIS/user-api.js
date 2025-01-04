@@ -33,20 +33,19 @@ oracledb.getConnection(
         inputPassword=loginObj.password;
         //retreviewing the password respected to the username received
         let userList =await userDataBase.execute(`SELECT custpassword from customer where custid=${inputId}`)
-        hashedPassword=userList.rows[0][0];
-        passwordMatched=false;
         //if it returns empty array then invalid id 
         if(userList.rows.length==0){
             res.send({message:"Invalid Id"})
         }
         //if it returns non empty array then verify password 
         else{
+            hashedPassword=userList.rows[0][0];
             bcrypt.compare(inputPassword, hashedPassword).then(function(result) {
                 if(result){
                     res.send({message:"successful"})
                 }
                 else{
-                    res.send({message:"unsuccessfull"})
+                    res.send({message:"Incorrect Password"})
                 }
             });
      }

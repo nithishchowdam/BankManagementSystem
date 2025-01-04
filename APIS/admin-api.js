@@ -35,20 +35,20 @@ oracledb.getConnection(
         inputPassword=loginObj.password;
         //retreviewing the password respected to the username received
         let adminAuth =await adminDataBase.execute(`SELECT password from admin where adminid=${inputId}`)
-        hashedPassword=adminAuth.rows[0][0];
-        passwordMatched=false;
+        
         //if it returns empty array then invalid id 
         if(adminAuth.rows.length==0){
             res.send({message:"Invalid Id"})
         }
         //if it returns non empty array then verify password
         else{
+            hashedPassword=adminAuth.rows[0][0];
             bcrypt.compare(inputPassword, hashedPassword).then(function(result) {
                 if(result){
                     res.send({message:"successful"})
                 }
                 else{
-                    res.send({message:"unsuccessfull"})
+                    res.send({message:"Incorrect Password"})
                 }
             });
         }
@@ -326,7 +326,7 @@ oracledb.getConnection(
       //function for sending  new  login details to user through registered mail
       function mail(to,id,pass,accnum){
       var mailOptions = {
-        from: 'narcosbank21@gmail.com',
+        from: 'narcosbank2021@gmail.com',
         to: `${to}`,
         subject: 'New account login details',
         text: `Welcome to Narcos Bank .Your new login details are \n Customer Id : ${id} \n Password : ${pass} \n Account Number :${accnum} \n Please change your password.`
@@ -344,7 +344,7 @@ oracledb.getConnection(
       //fuction for sending new password to admin through registered mail
       function newPassmail(to,pass){
         var mailOptions = {
-          from: 'narcosbank21@gmail.com',
+          from: 'narcosbank2021@gmail.com',
           to: `${to}`,
           subject: 'New Password',
           text: `Your new password is ${pass}. \n Please change your password after successfull login. `
@@ -358,6 +358,7 @@ oracledb.getConnection(
           }
         });
     }
+    
     
     
 
