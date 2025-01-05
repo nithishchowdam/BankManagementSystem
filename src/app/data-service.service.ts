@@ -17,9 +17,10 @@ export class DataServiceService {
    return this.hc.post('/user/login', userObj);
   }
 
-  getUserProfile(id): Observable<any>{
-    return this.hc.get('/users/viewprofile/' + id);
-  }
+  //need to verify this once
+  //getUserProfile(id): Observable<any>{
+  //  return this.hc.get('/users/viewprofile/' + id);
+  //}
 
   registeredUser(registeredobj): Observable<any>{
     return this.hc.post('/user/register/', registeredobj);
