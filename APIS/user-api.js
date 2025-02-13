@@ -15,7 +15,7 @@ oracledb.getConnection(
     {
       user          : process.env.DBUSER,
       password      : process.env.DBPASS,
-      connectString : "localhost/XE"
+      connectString : process.env.DBCONNECTSTRING
     },
     function(err, connection)
     {
@@ -208,7 +208,20 @@ oracledb.getConnection(
           from: process.env.MAILUSERNAME,
           to: `${to}`,
           subject: 'New Password',
-          text: `Your new password is ${pass}. \n Please change your password after successfull login. `
+           html: `
+    <html>
+      <body style="font-family: Arial, sans-serif; color: #333;">
+        <h2 style="color: #534891;">Your New Password</h2>
+        <p>Hello,</p>
+        <p>We have received a request to reset your password. Here are your new login credentials:</p>
+        <p><strong>New Password: </strong><span style="color: #FF5733;">${pass}</span></p>
+        <p><em>Please ensure you change your password after successfully logging in to keep your account secure.</em></p>
+        <p>If you did not request this change, please ignore this email or contact support immediately.</p>
+        <br>
+        <p>Best regards,<br>The Narcos Bank Team</p>
+      </body>
+    </html>
+  `
         };
         
         transporter.sendMail(mailOptions, function(error, info){
