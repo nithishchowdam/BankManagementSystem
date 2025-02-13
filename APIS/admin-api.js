@@ -16,7 +16,7 @@ oracledb.getConnection(
     {
       user          : process.env.DBUSER,
       password      : process.env.DBPASS,
-      connectString : "localhost/XE"
+      connectString : process.env.DBCONNECTSTRING
     },
     function(err, connection)
     {
@@ -329,7 +329,39 @@ oracledb.getConnection(
         from: 'narcosbank2021@gmail.com',
         to: `${to}`,
         subject: 'New account login details',
-        text: `Welcome to Narcos Bank .Your new login details are \n Customer Id : ${id} \n Password : ${pass} \n Account Number :${accnum} \n Please change your password.`
+        html: `
+        <html>
+          <body style="font-family: Arial, sans-serif; color: #333; background-color: #f4f4f4; padding: 20px;">
+            <h2 style="color: #534891;">Welcome to Narcos Bank</h2>
+            <p>Dear Customer,</p>
+            <p>Thank you for choosing Narcos Bank! Here are your new login details:</p>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+              <tr>
+                <td style="padding: 8px; font-weight: bold; background-color: #e9e9e9;">Customer ID:</td>
+                <td style="padding: 8px; background-color: #fff;">${id}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px; font-weight: bold; background-color: #e9e9e9;">Password:</td>
+                <td style="padding: 8px; background-color: #fff;">${pass}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px; font-weight: bold; background-color: #e9e9e9;">Account Number:</td>
+                <td style="padding: 8px; background-color: #fff;">${accnum}</td>
+              </tr>
+            </table>
+            <p style="margin-top: 20px;">Please change your password after you successfully log in to secure your account.</p>
+            <p>If you did not request this information, please contact our support team immediately.</p>
+            <br>
+            <p>Best regards,<br>The Narcos Bank Team</p>
+          </body>
+        </html>
+      `,
+        text: `Welcome to Narcos Bank. Your new login details are:
+        Customer ID: ${id}
+        Password: ${pass}
+        Account Number: ${accnum}
+      
+        Please change your password after successful login to ensure your account's security.`
       };
       
       transporter.sendMail(mailOptions, function(error, info){
@@ -347,7 +379,20 @@ oracledb.getConnection(
           from: 'narcosbank2021@gmail.com',
           to: `${to}`,
           subject: 'New Password',
-          text: `Your new password is ${pass}. \n Please change your password after successfull login. `
+          html: `
+          <html>
+            <body style="font-family: Arial, sans-serif; color: #333;">
+              <h2 style="color: #534891;">Your New Password</h2>
+              <p>Hello,</p>
+              <p>We have received a request to reset your password. Here are your new login credentials:</p>
+              <p><strong>New Password: </strong><span style="color: #FF5733;">${pass}</span></p>
+              <p><em>Please ensure you change your password after successfully logging in to keep your account secure.</em></p>
+              <p>If you did not request this change, please ignore this email or contact support immediately.</p>
+              <br>
+              <p>Best regards,<br>The Narcos Bank Team</p>
+            </body>
+          </html>
+        `
         };
         
         transporter.sendMail(mailOptions, function(error, info){
